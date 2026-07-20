@@ -5,13 +5,15 @@
    Invitation Workspace Module
 ========================================================== */
 
+
+
 function openInvitation(id){
 
     const invitations = getInvitations();
 
     const families = JSON.parse(
-    localStorage.getItem("nexo_families") || "[]"
-);
+        localStorage.getItem("nexo_families") || "[]"
+    );
 
     const invitation = invitations.find(
         inv => inv.id === id
@@ -26,7 +28,7 @@ function openInvitation(id){
     }
 
     const family = families.find(
-        family => Number(family.id) === Number(invitation.familyId)
+        f => Number(f.id) === Number(invitation.familyId)
     );
 
     const page = document.getElementById("pageContainer");
@@ -61,57 +63,13 @@ function openInvitation(id){
 
     <h3>Invitation Overview</h3>
 
-    <div class="workspace-grid">
+    <p><strong>Status:</strong> ${invitation.status}</p>
 
-        <div class="workspace-stat">
+    <p><strong>Guests:</strong> ${family ? family.guests : 0}</p>
 
-            <span class="workspace-label">
+    <p><strong>Phone:</strong> ${family ? family.phone : "-"}</p>
 
-                Status
-
-            </span>
-
-            <strong>${invitation.status}</strong>
-
-        </div>
-
-        <div class="workspace-stat">
-
-            <span class="workspace-label">
-
-                Guests
-
-            </span>
-
-            <strong>${family ? family.guests : 0}</strong>
-
-        </div>
-
-        <div class="workspace-stat">
-
-            <span class="workspace-label">
-
-                Phone
-
-            </span>
-
-            <strong>${family ? family.phone : "-"}</strong>
-
-        </div>
-
-        <div class="workspace-stat">
-
-            <span class="workspace-label">
-
-                Website
-
-            </span>
-
-            <strong>Not Published</strong>
-
-        </div>
-
-    </div>
+    <p><strong>Website:</strong> Not Published</p>
 
 </section>
 
@@ -119,35 +77,29 @@ function openInvitation(id){
 
     <h3>Quick Actions</h3>
 
-    <p class="subtitle">
-
-        Everything for this invitation starts here.
-
-    </p>
-
-    <div class="workspace-actions">
+    <div class="button-row">
 
         <button
             class="primary-btn"
-            onclick="showToast('Guest Manager Coming Soon')">
+            onclick="showToast('Guests Coming Soon')">
 
-            👥 Guests
+            Guests
 
         </button>
 
         <button
             class="primary-btn"
-            onclick="showToast('RSVP Manager Coming Soon')">
+            onclick="showToast('RSVP Coming Soon')">
 
-            💌 RSVP
+            RSVP
 
         </button>
 
         <button
             class="primary-btn"
-            onclick="showToast('Website Builder Coming Soon')">
+            onclick="showToast('Website Coming Soon')">
 
-            🌐 Website
+            Website
 
         </button>
 
@@ -155,7 +107,7 @@ function openInvitation(id){
             class="primary-btn"
             onclick="showToast('Templates Coming Soon')">
 
-            🎨 Templates
+            Templates
 
         </button>
 
@@ -163,7 +115,7 @@ function openInvitation(id){
             class="primary-btn"
             onclick="showToast('QR Code Coming Soon')">
 
-            📱 QR Code
+            QR Code
 
         </button>
 
@@ -171,7 +123,7 @@ function openInvitation(id){
             class="primary-btn"
             onclick="showToast('Preview Coming Soon')">
 
-            👁 Preview
+            Preview
 
         </button>
 
@@ -181,19 +133,11 @@ function openInvitation(id){
 
 <section class="card">
 
-    <h3>Activity</h3>
+    <h3>Recent Activity</h3>
 
-    <p>
+    <p>Invitation created successfully.</p>
 
-        Invitation created successfully.
-
-    </p>
-
-    <p>
-
-        Waiting to be published.
-
-    </p>
+    <p>Waiting to be published.</p>
 
 </section>
 
