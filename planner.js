@@ -1354,4 +1354,6 @@ function validateFamily(name, guests){
     return true;
 
 }
+window.showDashboard = showDashboard;
+window.showFamilies = showFamilies;
 
