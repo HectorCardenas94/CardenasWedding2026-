@@ -111,7 +111,7 @@ function renderInvitationCards() {
 
         const family = families.find(f => f.id === inv.familyId);
 
-        const guestCount = family?.guests?.length || 0;
+        const guestCount = family ? family.guests : 0;
 
         return `
             <section class="card invitation-card">
