@@ -368,17 +368,16 @@ function loadFamilies(){
 
     let cards = "";
 
-    if(families.length === 0){
+  if(families.length === 0){
 
-        rows = `
-        <tr>
-            <td colspan="5" class="empty-state">
-                No families added yet.
-            </td>
-        </tr>
-        `;
+    cards = `
+<section class="card">
+    <h3>No Families Yet</h3>
+    <p>Create your first family to get started.</p>
+</section>
+`;
 
-    }else{
+}else{
 
         families.forEach((family,index)=>{
 
