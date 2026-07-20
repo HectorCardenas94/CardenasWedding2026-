@@ -71,6 +71,10 @@ onclick="openCreateInvitationModal()">
 
 </header>
 
+<section id="invitationStats" class="stats-grid">
+
+</section>
+
 <section id="invitationList">
 
 </section>
@@ -246,10 +250,69 @@ function deleteInvitation(id) {
 
     saveInvitations(invitations);
 
-    renderInvitationCards();
+    renderInvitationStats();
+renderInvitationStats();
+
 
     showToast("Invitation deleted.");
 
 }
+
+function renderInvitationStats() {
+
+    const invitations = getInvitations();
+
+    const families = JSON.parse(
+        localStorage.getItem("nexo_families") || "[]"
+    );
+
+    const stats = document.getElementById("invitationStats");
+
+    if (!stats) return;
+
+    const drafts = invitations.filter(
+        i => i.status === "Draft"
+    ).length;
+
+    const published = invitations.filter(
+        i => i.status === "Published"
+    ).length;
+
+    const totalGuests = invitations.reduce((sum, inv) => {
+
+        const family = families.find(
+            f => Number(f.id) === Number(inv.familyId)
+        );
+
+        return sum + (family ? family.guests : 0);
+
+    }, 0);
+
+    stats.innerHTML = `
+
+        <section class="card">
+            <h3>${drafts}</h3>
+            <p>Drafts</p>
+        </section>
+
+        <section class="card">
+            <h3>${published}</h3>
+            <p>Published</p>
+        </section>
+
+        <section class="card">
+            <h3>${invitations.length}</h3>
+            <p>Total Invitations</p>
+        </section>
+
+        <section class="card">
+            <h3>${totalGuests}</h3>
+            <p>Guests Linked</p>
+        </section>
+
+    `;
+
+}
+
 window.createInvitation = createInvitation;
 window.deleteInvitation = deleteInvitation;
