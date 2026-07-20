@@ -1,5 +1,5 @@
 "use strict";
-
+alert("Invitation Workspace Loaded");
 /* ==========================================================
    NEXO Alpha 0.3
    Invitation Workspace Module
