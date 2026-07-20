@@ -100,7 +100,7 @@ function loadDashboard() {
     const page = document.getElementById("pageContainer");
 
     // Load saved data
-    const families = JSON.parse(localStorage.getItem("families")) || [];
+    const families = getFamilies();
     const invitations = JSON.parse(localStorage.getItem("invitations")) || [];
 
     // Count guests
