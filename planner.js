@@ -1166,6 +1166,24 @@ onclick="viewFamily(${familyIndex})">
 
 <div class="form-group">
 
+<div class="form-group">
+
+<label>Meal Selection</label>
+
+<select id="guestMeal">
+
+<option value="Chicken" ${guest.meal==="Chicken"?"selected":""}>Chicken</option>
+
+<option value="Beef" ${guest.meal==="Beef"?"selected":""}>Beef</option>
+
+<option value="Vegetarian" ${guest.meal==="Vegetarian"?"selected":""}>Vegetarian</option>
+
+<option value="Kids" ${guest.meal==="Kids"?"selected":""}>Kids</option>
+
+</select>
+
+</div>
+
 <label>Phone</label>
 
 <input
@@ -1257,6 +1275,8 @@ function saveGuestProfile(familyIndex, guestIndex){
     const families = getFamilies();
 
     const guest = families[familyIndex].members[guestIndex];
+    
+    guest.meal = document.getElementById("guestMeal").value;
 
     guest.phone = document.getElementById("guestPhone").value.trim();
 
