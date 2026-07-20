@@ -31,107 +31,169 @@ function openInvitation(id){
 
     page.innerHTML = `
 
+page.innerHTML = `
+
 <header class="top-header">
 
-<button
-class="secondary-btn"
-onclick="loadInvitations()">
+    <button
+        class="secondary-btn"
+        onclick="loadInvitations()">
 
-← Back
+        ← Back
 
-</button>
+    </button>
 
-<div>
+    <div>
 
-<h2>
+        <h2>${family ? family.name : "Invitation"}</h2>
 
-${family ? family.name : "Invitation"}
+        <p class="subtitle">
 
-</h2>
+            Invitation Workspace
 
-<p class="subtitle">
+        </p>
 
-Invitation Workspace
-
-</p>
-
-</div>
+    </div>
 
 </header>
 
 <section class="card">
 
-<h3>Overview</h3>
+    <h3>Invitation Overview</h3>
 
-<p><strong>Status:</strong> ${invitation.status}</p>
+    <div class="workspace-grid">
 
-<p><strong>Guests:</strong> ${family ? family.guests : 0}</p>
+        <div class="workspace-stat">
 
-<p><strong>Phone:</strong> ${family ? family.phone : "-"}</p>
+            <span class="workspace-label">
+
+                Status
+
+            </span>
+
+            <strong>${invitation.status}</strong>
+
+        </div>
+
+        <div class="workspace-stat">
+
+            <span class="workspace-label">
+
+                Guests
+
+            </span>
+
+            <strong>${family ? family.guests : 0}</strong>
+
+        </div>
+
+        <div class="workspace-stat">
+
+            <span class="workspace-label">
+
+                Phone
+
+            </span>
+
+            <strong>${family ? family.phone : "-"}</strong>
+
+        </div>
+
+        <div class="workspace-stat">
+
+            <span class="workspace-label">
+
+                Website
+
+            </span>
+
+            <strong>Not Published</strong>
+
+        </div>
+
+    </div>
 
 </section>
 
 <section class="card">
 
-<h3>Workspace</h3>
+    <h3>Quick Actions</h3>
 
-<p>
+    <p class="subtitle">
 
-Everything related to this invitation will be managed here.
+        Everything for this invitation starts here.
 
-</p>
+    </p>
 
-<div class="button-row">
+    <div class="workspace-actions">
 
-<button
-class="primary-btn"
-onclick="showToast('Coming Soon')">
+        <button
+            class="primary-btn"
+            onclick="showToast('Guest Manager Coming Soon')">
 
-Guest List
+            👥 Guests
 
-</button>
+        </button>
 
-<button
-class="primary-btn"
-onclick="showToast('Coming Soon')">
+        <button
+            class="primary-btn"
+            onclick="showToast('RSVP Manager Coming Soon')">
 
-Message
+            💌 RSVP
 
-</button>
+        </button>
 
-<button
-class="primary-btn"
-onclick="showToast('Coming Soon')">
+        <button
+            class="primary-btn"
+            onclick="showToast('Website Builder Coming Soon')">
 
-Template
+            🌐 Website
 
-</button>
+        </button>
 
-<button
-class="primary-btn"
-onclick="showToast('Coming Soon')">
+        <button
+            class="primary-btn"
+            onclick="showToast('Templates Coming Soon')">
 
-Website
+            🎨 Templates
 
-</button>
+        </button>
 
-<button
-class="primary-btn"
-onclick="showToast('Coming Soon')">
+        <button
+            class="primary-btn"
+            onclick="showToast('QR Code Coming Soon')">
 
-QR Code
+            📱 QR Code
 
-</button>
+        </button>
 
-<button
-class="primary-btn"
-onclick="showToast('Coming Soon')">
+        <button
+            class="primary-btn"
+            onclick="showToast('Preview Coming Soon')">
 
-Preview
+            👁 Preview
 
-</button>
+        </button>
 
-</div>
+    </div>
+
+</section>
+
+<section class="card">
+
+    <h3>Activity</h3>
+
+    <p>
+
+        Invitation created successfully.
+
+    </p>
+
+    <p>
+
+        Waiting to be published.
+
+    </p>
 
 </section>
 
