@@ -57,7 +57,7 @@ function showInvitations(event,link){
 
     activateNav(link);
 
-    loadPlaceholder("Invitations");
+    loadInvitations();
 
 }
 
