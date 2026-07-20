@@ -1206,6 +1206,34 @@ value="${guest.table || ""}">
 
 </div>
 
+<div class="form-group">
+
+<label>Plus One</label>
+
+<input
+id="guestPlusOne"
+type="checkbox"
+${guest.plusOne ? "checked" : ""}>
+
+</div>
+
+<div class="form-group">
+
+<label>Guest Type</label>
+
+<select id="guestType">
+
+<option value="Adult" ${guest.type==="Adult"?"selected":""}>Adult</option>
+
+<option value="Child" ${guest.type==="Child"?"selected":""}>Child</option>
+
+<option value="Vendor" ${guest.type==="Vendor"?"selected":""}>Vendor</option>
+
+</select>
+
+</div>
+
+
 </div>
 
 <div class="modal-actions">
@@ -1235,6 +1263,10 @@ function saveGuestProfile(familyIndex, guestIndex){
     guest.email = document.getElementById("guestEmail").value.trim();
 
     guest.notes = document.getElementById("guestNotes").value.trim();
+
+guest.plusOne = document.getElementById("guestPlusOne").checked;
+
+guest.type = document.getElementById("guestType").value;
 
 guest.plusOne = document.getElementById("guestPlusOne").checked;
 
