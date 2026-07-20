@@ -366,9 +366,9 @@ function loadFamilies(){
 
     const families = getFamilies();
 
-    let cards = "";
+    let rows = "";
 
-    if(families.length===0){
+    if(families.length === 0){
 
         rows = `
         <tr>
@@ -388,35 +388,35 @@ function loadFamilies(){
 
                 <td>${family.name}</td>
 
-                <td>${family.guests}</td>
+                <td>${family.guests || 0}</td>
 
                 <td>${family.phone || "-"}</td>
 
-                <td>${family.status}</td>
+                <td>${family.status || "Pending"}</td>
 
                 <td>
 
                     <button
-class="primary-btn"
-onclick="viewFamily(${index})">
+                    class="primary-btn"
+                    onclick="viewFamily(${index})">
 
-Open
+                    Open
 
-</button>
-
-<button
-class="secondary-btn"
-onclick="editFamily(${index})">
-
-Edit
-
-</button>
+                    </button>
 
                     <button
-                        class="danger-btn"
-                        onclick="deleteFamily(${index})">
+                    class="secondary-btn"
+                    onclick="editFamily(${index})">
 
-                        Delete
+                    Edit
+
+                    </button>
+
+                    <button
+                    class="danger-btn"
+                    onclick="deleteFamily(${index})">
+
+                    Delete
 
                     </button>
 
@@ -429,264 +429,6 @@ Edit
         });
 
     }
-
-function loadGuests(){
-
-    const page = document.getElementById("pageContainer");
-
-    const families = getFamilies();
-
-    let cards = "";
-
-    families.forEach((family, familyIndex)=>{
-
-        if(!family.members) return;
-
-        family.members.forEach((guest, guestIndex)=>{
-
-     cards += `
-
-<div class="guest-card">
-
-    <div class="guest-card-header">
-
-        <h3>${guest.name}</h3>
-
-        <p>${family.name}</p>
-
-    </div>
-
-    <div class="guest-card-body">
-
-        ${getRSVPBadge(guest.rsvp)}
-
-        ${getMealBadge(guest.meal)}
-
-        <p>🪑 Table: ${guest.table || "Unassigned"}</p>
-
-    </div>
-
-    <div class="guest-card-footer">
-
-        <button
-        class="primary-btn"
-        onclick="openGuestProfile(${familyIndex}, ${guestIndex})">
-
-            Open Profile
-
-        </button>
-
-    </div>
-
-</div>
-
-`;
-onclick=")">
-
-        });
-
-    });
-
-    page.innerHTML = `
-
-<header class="top-header">
-
-<div>
-
-<h2>Guest Directory</h2>
-
-<p class="subtitle">
-
-Manage every guest in one place.
-
-</p>
-
-</div>
-
-</header>
-
-<section class="card">
-
-<div class="toolbar">
-
-<input
-
-id="guestSearch"
-
-type="text"
-
-placeholder="Search guests..."
-
-oninput="filterGuests()">
-
-</div>
-
-<table class="data-table">
-
-<thead>
-
-<tr>
-
-<th>Guest</th>
-
-<th>Family</th>
-
-<th>RSVP</th>
-
-<th>Meal</th>
-
-<th>Action</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-${rows || `
-<tr>
-<td colspan="5">No guests have been added yet.</td>
-</tr>
-`}
-
-</tbody>
-
-</table>
-
-</section>
-
-`;
-
-}
-
-function loadGuests(){
-
-    const page = document.getElementById("pageContainer");
-
-    const families = getFamilies();
-
-    let rows = "";
-
-    families.forEach((family, familyIndex)=>{
-
-        if(!family.members) return;
-
-        family.members.forEach((guest, guestIndex)=>{
-
-            rows += `
-
-<tr>
-
-<td>${guest.name}</td>
-
-<td>${family.name}</td>
-
-<td>${guest.rsvp}</td>
-
-<td>${guest.meal}</td>
-
-<td>
-
-<button
-class="primary-btn"
-onclick="openGuestProfile(${familyIndex},${guestIndex})">
-
-Open
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-        });
-
-    });
-
-    page.innerHTML = `
-
-<header class="top-header">
-
-<div>
-
-<h2>Guest Directory</h2>
-
-<p class="subtitle">
-
-Manage every guest in one place.
-
-</p>
-
-</div>
-
-</header>
-
-<section class="card">
-
-<div class="toolbar">
-
-<input
-
-id="guestSearch"
-
-type="text"
-
-placeholder="Search guests..."
-
-oninput="filterGuests()">
-
-</div>
-
-<div id="guestGrid" class="guest-grid">
-
-${cards || `
-
-<p>No guests have been added yet.</p>
-
-`}
-
-</div>
-
-</section>
-
-`;
-
-}
-
-function filterGuests(){
-
-function getMealBadge(meal){
-
-    if(!meal){
-        return `<span class="meal-badge">—</span>`;
-    }
-
-    return `<span class="meal-badge">${meal}</span>`;
-
-}
-
-    const search = document
-        .getElementById("guestSearch")
-        .value
-        .trim()
-        .toLowerCase();
-
-    const rows = document.querySelectorAll(".data-table tbody tr");
-
-    rows.forEach(row=>{
-
-        row.style.display =
-            row.textContent
-                .toLowerCase()
-                .includes(search)
-                    ? ""
-                    : "none";
-
-    });
-
-}
 
     page.innerHTML = `
 
@@ -719,13 +461,9 @@ onclick="showAddFamilyModal()">
 <div class="toolbar">
 
 <input
-
 id="familySearch"
-
 type="text"
-
 placeholder="Search families or guests..."
-
 oninput="filterFamilies()">
 
 </div>
@@ -737,13 +475,9 @@ oninput="filterFamilies()">
 <tr>
 
 <th>Family</th>
-
 <th>Guests</th>
-
 <th>Phone</th>
-
 <th>Status</th>
-
 <th>Actions</th>
 
 </tr>
@@ -803,6 +537,139 @@ function filterFamilies(){
         }
 
         row.style.display = match ? "" : "none";
+
+    });
+
+}
+
+function loadGuests(){
+
+    const page = document.getElementById("pageContainer");
+
+    const families = getFamilies();
+
+    let rows = "";
+
+    families.forEach((family, familyIndex)=>{
+
+        const members = family.members || [];
+
+        members.forEach((guest, guestIndex)=>{
+
+            rows += `
+
+<tr>
+
+<td>${guest.name}</td>
+
+<td>${family.name}</td>
+
+<td>${guest.rsvp || "Pending"}</td>
+
+<td>${guest.meal || "-"}</td>
+
+<td>
+
+<button
+class="primary-btn"
+onclick="openGuestProfile(${familyIndex},${guestIndex})">
+
+Open
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+        });
+
+    });
+
+    page.innerHTML = `
+
+<header class="top-header">
+
+<div>
+
+<h2>Guest Directory</h2>
+
+<p class="subtitle">
+
+Manage every guest in one place.
+
+</p>
+
+</div>
+
+</header>
+
+<section class="card">
+
+<div class="toolbar">
+
+<input
+id="guestSearch"
+type="text"
+placeholder="Search guests..."
+oninput="filterGuests()">
+
+</div>
+
+<table class="data-table">
+
+<thead>
+
+<tr>
+
+<th>Guest</th>
+<th>Family</th>
+<th>RSVP</th>
+<th>Meal</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="guestTable">
+
+${rows || `
+<tr>
+<td colspan="5">No guests have been added yet.</td>
+</tr>
+`}
+
+</tbody>
+
+</table>
+
+</section>
+
+`;
+
+}
+
+function filterGuests(){
+
+    const search = document
+        .getElementById("guestSearch")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const rows = document.querySelectorAll("#guestTable tr");
+
+    rows.forEach(row=>{
+
+        row.style.display =
+            row.textContent
+                .toLowerCase()
+                .includes(search)
+                    ? ""
+                    : "none";
 
     });
 
