@@ -197,3 +197,62 @@ function openCreateInvitationModal() {
     `);
 
 }
+
+/* ==========================================================
+   Invitations Logic - Part 1B
+========================================================== */
+
+function createInvitation() {
+
+    const familyId = document.getElementById("inviteFamily").value;
+
+    const invitations = getInvitations();
+
+    // Prevent duplicate invitations
+    if (invitations.some(inv => inv.familyId === familyId)) {
+
+        showToast("This family already has an invitation.");
+
+        return;
+
+    }
+
+    invitations.push({
+
+        id: crypto.randomUUID(),
+
+        familyId,
+
+        status: "Draft",
+
+        createdAt: new Date().toISOString()
+
+    });
+
+    saveInvitations(invitations);
+
+    closeModal();
+
+    renderInvitationCards();
+
+    showToast("Invitation created.");
+
+}
+
+function deleteInvitation(id) {
+
+    if (!confirm("Delete this invitation?")) {
+
+        return;
+
+    }
+
+    const invitations = getInvitations().filter(inv => inv.id !== id);
+
+    saveInvitations(invitations);
+
+    renderInvitationCards();
+
+    showToast("Invitation deleted.");
+
+}
