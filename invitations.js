@@ -258,3 +258,5 @@ function deleteInvitation(id) {
     showToast("Invitation deleted.");
 
 }
+window.createInvitation = createInvitation;
+window.deleteInvitation = deleteInvitation;
