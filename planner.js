@@ -1,273 +1,367 @@
-// =======================================
-// NEXO v1.1 Dashboard
-// =======================================
+/* ==========================================================
+   NEXO Alpha 0.3
+   planner.js
+   PART 1 / 3
+========================================================== */
 
-// Demo Data
-const dashboard = {
-    guests: 152,
-    confirmed: 119,
-    pending: 33,
-    progress: 72
-};
+"use strict";
 
-// ----------------------------
-// Greeting
-// ----------------------------
+/* ==========================================================
+   App
+========================================================== */
 
-const greeting = document.getElementById("greeting");
+document.addEventListener("DOMContentLoaded", () => {
 
-function updateGreeting(){
+    initializeApp();
+
+});
+
+function initializeApp() {
+
+    updateGreeting();
+
+    updateProgress(72);
+
+    setActiveNavigation();
+
+}
+
+/* ==========================================================
+   Greeting
+========================================================== */
+
+function updateGreeting() {
+
+    const greeting = document.getElementById("greeting");
+
+    if (!greeting) return;
 
     const hour = new Date().getHours();
 
     let message = "Good Evening";
 
-    if(hour < 12){
+    if (hour < 12) {
+
         message = "Good Morning";
-    }
-    else if(hour < 18){
+
+    } else if (hour < 18) {
+
         message = "Good Afternoon";
+
     }
 
-    greeting.innerHTML = `${message}, Hector 👋`;
+    greeting.textContent = `${message}, Hector 👋`;
 
 }
 
-updateGreeting();
+/* ==========================================================
+   Progress
+========================================================== */
 
-// ----------------------------
-// Progress Bar
-// ----------------------------
+function updateProgress(percent) {
 
-const progressFill = document.getElementById("progressFill");
-const progressPercent = document.getElementById("progressPercent");
+    const fill = document.getElementById("progressFill");
 
-function updateProgress(value){
+    const label = document.getElementById("progressPercent");
 
-    progressFill.style.width = value + "%";
+    if (fill) {
 
-    progressPercent.innerHTML = value + "%";
+        fill.style.width = percent + "%";
+
+    }
+
+    if (label) {
+
+        label.textContent = percent + "%";
+
+    }
 
 }
 
-updateProgress(dashboard.progress);
+/* ==========================================================
+   Navigation
+========================================================== */
 
-// ----------------------------
-// Dashboard Numbers
-// ----------------------------
+function setActiveNavigation() {
 
-document.getElementById("guestCount").innerHTML =
-dashboard.guests;
+    const links = document.querySelectorAll(".sidebar nav a");
 
-document.getElementById("confirmedCount").innerHTML =
-dashboard.confirmed;
+    links.forEach(link => {
 
-document.getElementById("pendingCount").innerHTML =
-dashboard.pending;
+        link.addEventListener("click", () => {
 
-// ----------------------------
-// Card Animation
-// ----------------------------
+            links.forEach(item => item.classList.remove("active"));
 
-const cards = document.querySelectorAll(".stat-card");
+            link.classList.add("active");
 
-cards.forEach((card,index)=>{
+        });
 
-    card.style.opacity="0";
-    card.style.transform="translateY(25px)";
-
-    setTimeout(()=>{
-
-        card.style.transition=".45s ease";
-
-        card.style.opacity="1";
-
-        card.style.transform="translateY(0)";
-
-    },150*index);
-
-});
-
-// ----------------------------
-// Quick Buttons
-// ----------------------------
-
-const buttons =
-document.querySelectorAll(".quick-buttons button");
-
-buttons.forEach(button=>{
-
-button.addEventListener("click",()=>{
-
-    alert("Coming in NEXO v1.2 🚀");
-
-});
-
-});
-
-// ----------------------------
-// Future Firebase Hooks
-// ----------------------------
-
-// Future:
-//
-// loadFamilies();
-//
-// loadRSVPs();
-//
-// loadMessages();
-//
-// loadProgress();
-//
-// updateDashboard();
-//
-// ----------------------------
-
-console.log("🚀 NEXO v1.1 Loaded Successfully");
-
-// ==========================
-// Navigation
-// ==========================
-
-const workspace = document.getElementById("workspace");
-
-function setActive(link){
-
-    document.querySelectorAll("nav a").forEach(item=>{
-        item.classList.remove("active");
     });
 
-    link.classList.add("active");
+}
+
+/* ==========================================================
+   Dashboard
+========================================================== */
+
+function showDashboard() {
+
+    console.log("Dashboard Loaded");
+
+}/* ==========================================================
+   Toast Notifications
+========================================================== */
+
+function showToast(message = "Saved Successfully") {
+
+    const toast = document.getElementById("toast");
+
+    if (!toast) return;
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(showToast.timeout);
+
+    showToast.timeout = setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 3000);
 
 }
 
-function showDashboard(link){
 
-    if(link) setActive(link);
+/* ==========================================================
+   Modal System
+========================================================== */
 
-    location.reload();
+function openModal(content = "") {
 
-}
+    const overlay = document.getElementById("modalOverlay");
 
-function showFamilies(link){
+    const modal = document.getElementById("modalContent");
 
-    if(link) setActive(link);
+    if (!overlay || !modal) return;
 
-    workspace.innerHTML = `
+    modal.innerHTML = content;
 
-    <h2>Families</h2>
-
-    <br>
-
-    <input
-    type="text"
-    placeholder="🔍 Search Families"
-    style="
-    width:100%;
-    padding:16px;
-    border-radius:14px;
-    border:1px solid #ddd;
-    margin-bottom:20px;
-    font-size:16px;
-    ">
-
-    <button
-    style="
-    background:#b8924f;
-    color:white;
-    border:none;
-    padding:16px 24px;
-    border-radius:14px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    margin-bottom:25px;
-    ">
-    ➕ Add Family
-    </button>
-
-    <div class="panel">
-
-        <h3>Cardenas Family</h3>
-
-        <p>Guests: 5</p>
-
-        <p>✅ RSVP Complete</p>
-
-    </div>
-
-    <br>
-
-    <div class="panel">
-
-        <h3>Garcia Family</h3>
-
-        <p>Guests: 4</p>
-
-        <p>⌛ Pending</p>
-
-    </div>
-
-    `;
+    overlay.style.display = "flex";
 
 }
 
-function showRSVPs(link){
+function closeModal() {
 
-    if(link) setActive(link);
+    const overlay = document.getElementById("modalOverlay");
 
-    workspace.innerHTML=`
+    if (!overlay) return;
 
-    <h2>RSVP Manager</h2>
-
-    <br>
-
-    <div class="panel">
-
-    Coming in Alpha 0.3 🚀
-
-    </div>
-
-    `;
+    overlay.style.display = "none";
 
 }
 
-function showMessages(link){
+document.addEventListener("click", (event) => {
 
-    if(link) setActive(link);
+    const overlay = document.getElementById("modalOverlay");
 
-    workspace.innerHTML=`
+    if (!overlay) return;
 
-    <h2>Messages</h2>
+    if (event.target === overlay) {
 
-    <br>
+        closeModal();
 
-    <div class="panel">
+    }
 
-    No new messages.
+});
 
-    </div>
 
-    `;
+/* ==========================================================
+   Dashboard Data
+========================================================== */
+
+function updateGuestStats(total, confirmed, pending) {
+
+    const guestCount = document.getElementById("guestCount");
+
+    const confirmedCount = document.getElementById("confirmedCount");
+
+    const pendingCount = document.getElementById("pendingCount");
+
+    if (guestCount) guestCount.textContent = total;
+
+    if (confirmedCount) confirmedCount.textContent = confirmed;
+
+    if (pendingCount) pendingCount.textContent = pending;
+
+}
+
+
+/* ==========================================================
+   Animated Progress
+========================================================== */
+
+function animateProgress(targetPercent) {
+
+    let current = 0;
+
+    const interval = setInterval(() => {
+
+        current++;
+
+        updateProgress(current);
+
+        if (current >= targetPercent) {
+
+            clearInterval(interval);
+
+        }
+
+    }, 15);
+
+}/* ==========================================================
+   Navigation Pages
+========================================================== */
+
+function showFamilies() {
+
+    showToast("Families module coming soon");
+
+    console.log("Families");
 
 }
 
-function showSettings(link){
+function showInvitations() {
 
-    if(link) setActive(link);
+    showToast("Invitations module coming soon");
 
-    workspace.innerHTML=`
-
-    <h2>Settings</h2>
-
-    <br>
-
-    <div class="panel">
-
-    Event Settings
-
-    </div>
-
-    `;
+    console.log("Invitations");
 
 }
+
+function showWebsite() {
+
+    showToast("Website Builder coming soon");
+
+    console.log("Website");
+
+}
+
+function showAnalytics() {
+
+    showToast("Analytics coming soon");
+
+    console.log("Analytics");
+
+}
+
+function showSettings() {
+
+    showToast("Settings coming soon");
+
+    console.log("Settings");
+
+}
+
+
+/* ==========================================================
+   Quick Actions
+========================================================== */
+
+function addFamily() {
+
+    openModal(`
+
+        <h2>Add Family</h2>
+
+        <p>This feature will be built in Alpha 0.4.</p>
+
+        <br>
+
+        <button class="btn btn-primary" onclick="closeModal()">
+
+            Close
+
+        </button>
+
+    `);
+
+}
+
+function openWebsiteEditor() {
+
+    showWebsite();
+
+}
+
+function sendReminder() {
+
+    showToast("Reminder sent (demo)");
+
+}
+
+function viewAnalytics() {
+
+    showAnalytics();
+
+}
+
+
+/* ==========================================================
+   Utilities
+========================================================== */
+
+function formatNumber(value) {
+
+    return Number(value).toLocaleString();
+
+}
+
+function setDashboardData(data) {
+
+    updateGuestStats(
+
+        data.totalGuests,
+
+        data.confirmedGuests,
+
+        data.pendingGuests
+
+    );
+
+    updateProgress(data.progress);
+
+}
+
+
+/* ==========================================================
+   Demo Data
+========================================================== */
+
+const dashboardData = {
+
+    totalGuests: 152,
+
+    confirmedGuests: 119,
+
+    pendingGuests: 33,
+
+    progress: 72
+
+};
+
+setDashboardData(dashboardData);
+
+
+/* ==========================================================
+   Future Expansion
+========================================================== */
+
+// Families Module
+// Invitations Module
+// Website Builder
+// Analytics Dashboard
+// Settings Manager
+// Authentication
+// Database Integration
+// API Layer
