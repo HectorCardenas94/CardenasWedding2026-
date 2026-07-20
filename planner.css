@@ -1,7 +1,12 @@
-/* ==========================================
+/* ==========================================================
    NEXO Alpha 0.3
-   Global Styles
-========================================== */
+   planner.css
+   PART 1 / 3
+========================================================== */
+
+/* ==========================
+   Variables
+========================== */
 
 :root{
 
@@ -11,7 +16,9 @@
 
     --background:#f8f6f2;
 
-    --card:#ffffff;
+    --surface:#ffffff;
+
+    --surface-2:#faf9f7;
 
     --border:#ececec;
 
@@ -19,18 +26,33 @@
 
     --text-light:#777;
 
+    --success:#42b883;
+
+    --danger:#e05858;
+
+    --warning:#f2b84b;
+
     --shadow:0 10px 30px rgba(0,0,0,.05);
 
     --radius:22px;
 
-    --transition:.25s;
+    --transition:.25s ease;
 
 }
 
+
+/* ==========================
+   Reset
+========================== */
+
 *{
+
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
+
 }
 
 html{
@@ -55,7 +77,10 @@ body{
 
 }
 
-/* Scrollbar */
+
+/* ==========================
+   Scrollbar
+========================== */
 
 ::-webkit-scrollbar{
 
@@ -73,7 +98,7 @@ body{
 
     background:var(--primary);
 
-    border-radius:20px;
+    border-radius:50px;
 
 }
 
@@ -83,31 +108,24 @@ body{
 
 }
 
-body{
-    font-family:'Poppins',sans-serif;
-    background:#f8f6f2;
-    color:#2f2f2f;
-    display:flex;
-    min-height:100vh;
-}
 
-/* ==========================================
+/* ==========================
    Sidebar
-========================================== */
+========================== */
 
 .sidebar{
 
     width:280px;
 
-    background:var(--card);
+    background:var(--surface);
 
     border-right:1px solid var(--border);
-
-    padding:35px 24px;
 
     display:flex;
 
     flex-direction:column;
+
+    padding:35px 24px;
 
     position:sticky;
 
@@ -131,15 +149,13 @@ body{
 
     letter-spacing:4px;
 
-    font-weight:700;
-
 }
 
 .logo p{
 
-    margin-top:8px;
+    color:#9c9c9c;
 
-    color:#9a9a9a;
+    margin-top:8px;
 
     font-size:14px;
 
@@ -163,13 +179,13 @@ nav a{
 
     gap:12px;
 
-    text-decoration:none;
-
-    color:#555;
-
     padding:15px 18px;
 
     border-radius:14px;
+
+    text-decoration:none;
+
+    color:#555;
 
     font-weight:600;
 
@@ -179,7 +195,7 @@ nav a{
 
 nav a:hover{
 
-    background:#f6f1e8;
+    background:#f5efe4;
 
     color:var(--primary);
 
@@ -201,7 +217,7 @@ nav a.active{
 
     margin-top:auto;
 
-    padding-top:25px;
+    padding-top:24px;
 
     border-top:1px solid var(--border);
 
@@ -211,268 +227,672 @@ nav a.active{
 
 }
 
-.sidebar{
-    width:270px;
-    background:#ffffff;
-    border-right:1px solid #ececec;
-    padding:35px 25px;
-    display:flex;
-    flex-direction:column;
-}
-
-.logo{
-    margin-bottom:45px;
-}
-
-.logo h1{
-    color:#b8924f;
-    font-size:34px;
-    letter-spacing:4px;
-}
-
-.logo p{
-    color:#999;
-    margin-top:8px;
-    font-size:14px;
-}
-
-nav{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-nav a{
-    text-decoration:none;
-    color:#444;
-    padding:15px 18px;
-    border-radius:14px;
-    transition:.25s;
-    font-weight:600;
-}
-
-nav a:hover,
-nav a.active{
-    background:#f5efe4;
-    color:#b8924f;
-}
 
 /* ==========================
-   Main
+   Main Layout
 ========================== */
 
 .main{
+
     flex:1;
+
     padding:45px;
+
+    overflow-y:auto;
+
+    animation:fadeIn .35s ease;
+
 }
 
 .top-header{
-    margin-bottom:30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:35px;
+
 }
 
 .top-header h2{
+
     font-size:34px;
+
     font-weight:700;
+
 }
 
 .subtitle{
-    margin-top:6px;
+
+    margin-top:8px;
+
+    color:var(--text-light);
+
     font-size:18px;
-    color:#666;
+
 }
 
 .date{
-    margin-top:4px;
+
+    margin-top:6px;
+
     color:#999;
+
+    font-size:14px;
+
 }
 
+
 /* ==========================
- Progress
+   Shared Cards
+========================== */
+
+.card{
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    border:1px solid rgba(0,0,0,.03);
+
+}/* ==========================
+   Progress Card
 ========================== */
 
 .progress-card{
-    background:white;
-    border-radius:22px;
-    padding:28px;
-    box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
+    padding:30px;
+
+    box-shadow:var(--shadow);
+
     margin-bottom:30px;
+
+    transition:var(--transition);
+
+}
+
+.progress-card:hover{
+
+    transform:translateY(-3px);
+
 }
 
 .progress-header{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
     margin-bottom:18px;
+
 }
 
 .progress-header h3{
+
     font-size:20px;
+
+    font-weight:600;
+
 }
 
 #progressPercent{
-    color:#b8924f;
-    font-size:22px;
+
+    color:var(--primary);
+
+    font-size:24px;
+
     font-weight:700;
+
 }
 
 .progress-bar{
+
     width:100%;
+
     height:14px;
+
     background:#ececec;
+
     border-radius:50px;
+
     overflow:hidden;
+
 }
 
 .progress-fill{
+
     width:72%;
+
     height:100%;
-    background:linear-gradient(90deg,#b8924f,#e4c67b);
+
     border-radius:50px;
-    transition:.6s;
+
+    background:linear-gradient(
+        90deg,
+        var(--primary),
+        var(--primary-light)
+    );
+
+    transition:width .5s ease;
+
 }
 
 .progress-text{
+
     margin-top:15px;
-    color:#777;
+
+    color:var(--text-light);
+
 }
 
+
+
 /* ==========================
- Stats
+   Dashboard Stats
 ========================== */
 
 .stats-grid{
+
     display:grid;
+
     grid-template-columns:repeat(3,1fr);
-    gap:20px;
+
+    gap:22px;
+
     margin-bottom:30px;
+
 }
 
 .stat-card{
-    background:white;
-    border-radius:22px;
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
     padding:28px;
-    box-shadow:0 10px 30px rgba(0,0,0,.05);
-    transition:.25s;
+
+    box-shadow:var(--shadow);
+
+    transition:var(--transition);
+
+    border:1px solid rgba(0,0,0,.03);
+
 }
 
 .stat-card:hover{
-    transform:translateY(-4px);
+
+    transform:translateY(-5px);
+
 }
 
 .stat-card h4{
-    color:#888;
-    margin-bottom:12px;
+
+    color:#8a8a8a;
+
+    font-size:15px;
+
+    margin-bottom:14px;
+
 }
 
 .stat-card h1{
-    color:#b8924f;
+
     font-size:48px;
+
+    color:var(--primary);
+
     margin-bottom:8px;
+
 }
 
 .stat-card p{
+
     color:#999;
+
     font-size:14px;
+
 }
 
+
+
 /* ==========================
- Lower Grid
+   Dashboard Grid
 ========================== */
 
 .dashboard-grid{
+
     display:grid;
+
     grid-template-columns:2fr 1fr;
-    gap:20px;
+
+    gap:22px;
+
 }
 
 .panel{
-    background:white;
-    border-radius:22px;
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
     padding:28px;
-    box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+    box-shadow:var(--shadow);
+
+    border:1px solid rgba(0,0,0,.03);
+
 }
 
 .panel h3{
-    margin-bottom:20px;
+
+    margin-bottom:22px;
+
+    font-size:21px;
+
 }
 
+
+
+/* ==========================
+   Activity Feed
+========================== */
+
 .activity{
+
     display:flex;
+
     flex-direction:column;
+
     gap:18px;
+
 }
 
 .activity div{
-    background:#fafafa;
-    padding:16px;
-    border-radius:12px;
-    border-left:5px solid #b8924f;
+
+    padding:18px;
+
+    background:var(--surface-2);
+
+    border-left:5px solid var(--primary);
+
+    border-radius:14px;
+
+    transition:var(--transition);
+
 }
 
+.activity div:hover{
+
+    transform:translateX(5px);
+
+}
+
+
+
+/* ==========================
+   Quick Actions
+========================== */
+
 .quick-buttons{
+
     display:grid;
-    gap:14px;
+
+    gap:15px;
+
 }
 
 .quick-buttons button{
+
     border:none;
-    background:#b8924f;
+
+    background:var(--primary);
+
     color:white;
+
     padding:16px;
+
     border-radius:14px;
+
     cursor:pointer;
+
     font-size:15px;
+
     font-weight:600;
-    transition:.25s;
+
+    transition:var(--transition);
+
 }
 
 .quick-buttons button:hover{
-    background:#a27d39;
-    transform:translateY(-2px);
+
+    background:var(--primary-dark);
+
+    transform:translateY(-3px);
+
 }
 
-footer{
-    margin-top:35px;
-    text-align:center;
-    color:#999;
-    font-size:14px;
-}
+
 
 /* ==========================
- Mobile
+   Footer
 ========================== */
+
+footer{
+
+    margin-top:35px;
+
+    text-align:center;
+
+    color:#999;
+
+    font-size:14px;
+
+}/* ==========================================================
+   Forms
+========================================================== */
+
+input,
+select,
+textarea{
+
+    width:100%;
+
+    padding:14px 16px;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    background:white;
+
+    font-size:15px;
+
+    font-family:inherit;
+
+    outline:none;
+
+    transition:var(--transition);
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 4px rgba(184,146,79,.12);
+
+}
+
+
+/* ==========================================================
+   Buttons
+========================================================== */
+
+.btn{
+
+    border:none;
+
+    border-radius:14px;
+
+    padding:14px 22px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+}
+
+.btn-primary{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+.btn-primary:hover{
+
+    background:var(--primary-dark);
+
+}
+
+.btn-secondary{
+
+    background:#f5efe4;
+
+    color:var(--primary);
+
+}
+
+.btn-secondary:hover{
+
+    background:#ece2d0;
+
+}
+
+
+/* ==========================================================
+   Tables
+========================================================== */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+th{
+
+    text-align:left;
+
+    padding:16px;
+
+    background:#faf9f7;
+
+    color:#777;
+
+    font-size:14px;
+
+}
+
+td{
+
+    padding:16px;
+
+    border-top:1px solid var(--border);
+
+}
+
+
+/* ==========================================================
+   Modal
+========================================================== */
+
+.modal-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.35);
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:999;
+
+}
+
+.modal{
+
+    width:min(650px,95%);
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:30px;
+
+    box-shadow:0 30px 60px rgba(0,0,0,.15);
+
+}
+
+
+/* ==========================================================
+   Toast
+========================================================== */
+
+.toast{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:16px 22px;
+
+    border-radius:14px;
+
+    box-shadow:var(--shadow);
+
+    opacity:0;
+
+    transform:translateY(15px);
+
+    transition:.35s;
+
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+/* ==========================================================
+   Animations
+========================================================== */
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.fade-in{
+
+    animation:fadeIn .35s ease;
+
+}
+
+
+/* ==========================================================
+   Mobile
+========================================================== */
 
 @media(max-width:900px){
 
 body{
+
     flex-direction:column;
+
 }
 
 .sidebar{
+
     width:100%;
+
+    height:auto;
+
+    position:relative;
+
     border-right:none;
-    border-bottom:1px solid #ececec;
+
+    border-bottom:1px solid var(--border);
+
 }
 
 nav{
+
     flex-direction:row;
-    overflow:auto;
+
+    overflow-x:auto;
+
 }
 
 .main{
-    padding:20px;
+
+    padding:22px;
+
 }
 
 .stats-grid{
+
     grid-template-columns:1fr;
+
 }
 
 .dashboard-grid{
+
     grid-template-columns:1fr;
+
+}
+
+.top-header{
+
+    flex-direction:column;
+
 }
 
 .top-header h2{
+
     font-size:28px;
+
 }
 
 }
