@@ -109,7 +109,7 @@ function renderInvitationCards() {
 
     container.innerHTML = invitations.map(inv => {
 
-        const family = families.find(f => f.id === inv.familyId);
+        const family = families.find(f => Number(f.id) === Number(inv.familyId));
 
         const guestCount = family ? family.guests : 0;
 
