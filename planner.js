@@ -1164,20 +1164,51 @@ onclick="viewFamily(${familyIndex})">
 
 <h3>Guest Information</h3>
 
-<p><strong>Name:</strong> ${guest.name}</p>
+<div class="form-group">
 
-<p><strong>Meal:</strong> ${guest.meal}</p>
+<label>Phone</label>
 
-<p><strong>RSVP:</strong> ${guest.rsvp}</p>
+<input
+id="guestPhone"
+type="text"
+value="${guest.phone || ""}">
 
-<p><strong>Phone:</strong> Coming Soon</p>
+</div>
 
-<p><strong>Email:</strong> Coming Soon</p>
+<div class="form-group">
 
-<p><strong>Notes:</strong> Coming Soon</p>
+<label>Email</label>
+
+<input
+id="guestEmail"
+type="email"
+value="${guest.email || ""}">
+
+</div>
+
+<div class="form-group">
+
+<label>Notes</label>
+
+<textarea
+id="guestNotes"
+rows="4">${guest.notes || ""}</textarea>
+
+</div>
+
+<div class="modal-actions">
+
+<button
+class="primary-btn"
+onclick="saveGuestProfile(${familyIndex}, ${guestIndex})">
+
+Save Changes
+
+</button>
+
+</div>
 
 </section>
-
 `;
 
 }
