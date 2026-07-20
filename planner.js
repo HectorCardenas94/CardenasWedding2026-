@@ -436,7 +436,7 @@ function loadGuests(){
 
     const families = getFamilies();
 
-    let rows = "";
+    let cards = "";
 
     families.forEach((family, familyIndex)=>{
 
@@ -444,33 +444,44 @@ function loadGuests(){
 
         family.members.forEach((guest, guestIndex)=>{
 
-            rows += `
+     cards += `
 
-<tr>
+<div class="guest-card">
 
-<td>${guest.name}</td>
+    <div class="guest-card-header">
 
-<td>${family.name}</td>
+        <h3>${guest.name}</h3>
 
-<td>${guest.rsvp}</td>
+        <p>${family.name}</p>
 
-<td>${guest.meal}</td>
+    </div>
 
-<td>
+    <div class="guest-card-body">
 
-<button
-class="primary-btn"
-onclick="openGuestProfile(${familyIndex},${guestIndex})">
+        ${getRSVPBadge(guest.rsvp)}
 
-Open
+        ${getMealBadge(guest.meal)}
 
-</button>
+        <p>🪑 Table: ${guest.table || "Unassigned"}</p>
 
-</td>
+    </div>
 
-</tr>
+    <div class="guest-card-footer">
+
+        <button
+        class="primary-btn"
+        onclick="openGuestProfile(${familyIndex}, ${guestIndex})">
+
+            Open Profile
+
+        </button>
+
+    </div>
+
+</div>
 
 `;
+onclick=")">
 
         });
 
@@ -628,37 +639,15 @@ oninput="filterGuests()">
 
 </div>
 
-<table class="data-table">
+<div id="guestGrid" class="guest-grid">
 
-<thead>
+${cards || `
 
-<tr>
+<p>No guests have been added yet.</p>
 
-<th>Guest</th>
-
-<th>Family</th>
-
-<th>RSVP</th>
-
-<th>Meal</th>
-
-<th>Action</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-${rows || `
-<tr>
-<td colspan="5">No guests have been added yet.</td>
-</tr>
 `}
 
-</tbody>
-
-</table>
+</div>
 
 </section>
 
