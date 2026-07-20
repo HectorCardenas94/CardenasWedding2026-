@@ -5,7 +5,25 @@ fetch("guests.json")
     .then(data => {
         families = data;
     });
+function setStep(step){
 
+const steps=document.querySelectorAll(".step");
+
+steps.forEach((s,index)=>{
+
+if(index<step){
+
+s.classList.add("active");
+
+}else{
+
+s.classList.remove("active");
+
+}
+
+});
+
+}
 function findGuest() {
 
     const search = document
