@@ -1110,11 +1110,15 @@ function openGuestProfile(familyIndex, guestIndex){
 
 <h2>${guest.name}</h2>
 
-<p class="subtitle">
+<div class="guest-status">
 
-Guest Profile
+${guest.rsvp === "Confirmed"
+    ? "🟢 Confirmed"
+    : guest.rsvp === "Declined"
+        ? "🔴 Declined"
+        : "🟡 Pending"}
 
-</p>
+</div>
 
 </div>
 
