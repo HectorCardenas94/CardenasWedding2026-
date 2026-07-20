@@ -503,18 +503,38 @@ function filterFamilies(){
     const search = document
         .getElementById("familySearch")
         .value
+        .trim()
         .toLowerCase();
+
+    const families = getFamilies();
 
     const rows = document.querySelectorAll("#familyTable tr");
 
-    rows.forEach(row=>{
+    rows.forEach((row,index)=>{
 
-        row.style.display =
-            row.textContent
-                .toLowerCase()
-                .includes(search)
-                    ? ""
-                    : "none";
+        const family = families[index];
+
+        let match = false;
+
+        // Match family name
+        if(family.name.toLowerCase().includes(search)){
+            match = true;
+        }
+
+        // Match guest names
+        if(!match && family.members){
+
+            family.members.forEach(member=>{
+
+                if(member.name.toLowerCase().includes(search)){
+                    match = true;
+                }
+
+            });
+
+        }
+
+        row.style.display = match ? "" : "none";
 
     });
 
