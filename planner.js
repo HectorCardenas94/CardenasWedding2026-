@@ -668,6 +668,16 @@ ${rows || `
 
 function filterGuests(){
 
+function getMealBadge(meal){
+
+    if(!meal){
+        return `<span class="meal-badge">—</span>`;
+    }
+
+    return `<span class="meal-badge">${meal}</span>`;
+
+}
+
     const search = document
         .getElementById("guestSearch")
         .value
