@@ -206,7 +206,7 @@ function createInvitation() {
 
     alert("Create button works");
 
-const familyId = document.getElementById("inviteFamily").value;
+const familyId = Number(document.getElementById("inviteFamily").value);
 
     const invitations = getInvitations();
 
