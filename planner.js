@@ -1194,6 +1194,18 @@ value="${guest.email || ""}">
 id="guestNotes"
 rows="4">${guest.notes || ""}</textarea>
 
+<div class="form-group">
+
+<label>Table Assignment</label>
+
+<input
+id="guestTable"
+type="text"
+placeholder="Example: Table 6"
+value="${guest.table || ""}">
+
+</div>
+
 </div>
 
 <div class="modal-actions">
