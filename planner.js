@@ -188,3 +188,107 @@ Ready to start building your event.
 `;
 
 }
+/* ==========================================================
+   Shared Helpers
+========================================================== */
+
+function loadPlaceholder(title){
+
+const page=document.getElementById("pageContainer");
+
+page.innerHTML=`
+
+<header class="top-header">
+
+<div>
+
+<h2>${title}</h2>
+
+<p class="subtitle">
+
+This module is currently under construction.
+
+</p>
+
+</div>
+
+</header>
+
+<section class="card">
+
+<h3>
+
+${title}
+
+</h3>
+
+<p>
+
+We're building this module next.
+
+</p>
+
+</section>
+
+`;
+
+}
+
+/* ==========================================================
+   Toast
+========================================================== */
+
+function showToast(message){
+
+const toast=document.getElementById("toast");
+
+if(!toast) return;
+
+toast.textContent=message;
+
+toast.classList.add("show");
+
+clearTimeout(window.toastTimer);
+
+window.toastTimer=setTimeout(()=>{
+
+toast.classList.remove("show");
+
+},2500);
+
+}
+
+/* ==========================================================
+   Modal
+========================================================== */
+
+function openModal(html){
+
+const overlay=document.getElementById("modalOverlay");
+
+const modal=document.getElementById("modalContent");
+
+modal.innerHTML=html;
+
+overlay.style.display="flex";
+
+}
+
+function closeModal(){
+
+document.getElementById("modalOverlay").style.display="none";
+
+}
+
+document.addEventListener("click",(e)=>{
+
+const overlay=document.getElementById("modalOverlay");
+
+if(e.target===overlay){
+
+closeModal();
+
+}
+
+});
+
