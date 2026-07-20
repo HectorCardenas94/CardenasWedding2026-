@@ -37,17 +37,33 @@ function showFamily(family) {
 
     family.guests.forEach(person => {
 
-        html += `
-            <label class="guest-card">
+html += `
 
-                <input type="checkbox">
+<label class="guest-card">
 
-                ${person}
+<input type="checkbox">
 
-            </label>
-        `;
+<div>
 
-    });
+<div class="guest-name">
+
+${person}
+
+</div>
+
+<div class="guest-status">
+
+Will be celebrating with us
+
+</div>
+
+</div>
+
+</label>
+
+`;
+
+});
 
     html += `
 
