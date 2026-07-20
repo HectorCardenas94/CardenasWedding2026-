@@ -1071,6 +1071,7 @@ function removeGuest(familyIndex,guestIndex){
     showToast("Guest removed.");
 
     viewFamily(familyIndex);
+    }
     
     /* ==========================================================
    Dashboard Data Engine
