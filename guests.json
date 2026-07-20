@@ -1,1 +1,31 @@
-
+[
+  {
+    "search": "carlos",
+    "family": "Carlos Family",
+    "guests": [
+      "Carlos",
+      "Yoli",
+      "Michael",
+      "Ash",
+      "Ash's Guest"
+    ]
+  },
+  {
+    "search": "hermo",
+    "family": "Hermo Family",
+    "guests": [
+      "Hermo",
+      "Lupita",
+      "Izzy",
+      "Emm"
+    ]
+  },
+  {
+    "search": "miguel",
+    "family": "Miguel & Mariela Family",
+    "guests": [
+      "Miguel",
+      "Mariela"
+    ]
+  }
+]
