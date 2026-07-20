@@ -1,80 +1,15 @@
-/* ==========================================================
-   NEXO Alpha 0.3
-   planner.js
-   PART 1 / 3
-========================================================== */
-
 "use strict";
 
 /* ==========================================================
-   App
+   NEXO Alpha 0.3
+   Application Engine
 ========================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", init);
 
-    initializeApp();
+function init() {
 
-});
-
-function initializeApp() {
-
-    updateGreeting();
-
-    updateProgress(72);
-
-    setActiveNavigation();
-
-}
-
-/* ==========================================================
-   Greeting
-========================================================== */
-
-function updateGreeting() {
-
-    const greeting = document.getElementById("greeting");
-
-    if (!greeting) return;
-
-    const hour = new Date().getHours();
-
-    let message = "Good Evening";
-
-    if (hour < 12) {
-
-        message = "Good Morning";
-
-    } else if (hour < 18) {
-
-        message = "Good Afternoon";
-
-    }
-
-    greeting.textContent = `${message}, Hector 👋`;
-
-}
-
-/* ==========================================================
-   Progress
-========================================================== */
-
-function updateProgress(percent) {
-
-    const fill = document.getElementById("progressFill");
-
-    const label = document.getElementById("progressPercent");
-
-    if (fill) {
-
-        fill.style.width = percent + "%";
-
-    }
-
-    if (label) {
-
-        label.textContent = percent + "%";
-
-    }
+    loadDashboard();
 
 }
 
@@ -82,21 +17,77 @@ function updateProgress(percent) {
    Navigation
 ========================================================== */
 
-function setActiveNavigation() {
+function activateNav(link){
 
-    const links = document.querySelectorAll(".sidebar nav a");
+    document
+        .querySelectorAll(".sidebar nav a")
+        .forEach(a=>a.classList.remove("active"));
 
-    links.forEach(link => {
+    if(link){
 
-        link.addEventListener("click", () => {
+        link.classList.add("active");
 
-            links.forEach(item => item.classList.remove("active"));
+    }
 
-            link.classList.add("active");
+}
 
-        });
+function showDashboard(event,link){
 
-    });
+    if(event) event.preventDefault();
+
+    activateNav(link);
+
+    loadDashboard();
+
+}
+
+function showFamilies(event,link){
+
+    if(event) event.preventDefault();
+
+    activateNav(link);
+
+    loadFamilies();
+
+}
+
+function showInvitations(event,link){
+
+    if(event) event.preventDefault();
+
+    activateNav(link);
+
+    loadPlaceholder("Invitations");
+
+}
+
+function showWebsite(event,link){
+
+    if(event) event.preventDefault();
+
+    activateNav(link);
+
+    loadPlaceholder("Website");
+
+}
+
+function showAnalytics(event,link){
+
+    if(event) event.preventDefault();
+
+    activateNav(link);
+
+    loadPlaceholder("Analytics");
+
+}
+
+function showSettings(event,link){
+
+    if(event) event.preventDefault();
+
+    activateNav(link);
+
+    loadPlaceholder("Settings");
 
 }
 
@@ -104,264 +95,96 @@ function setActiveNavigation() {
    Dashboard
 ========================================================== */
 
-function showDashboard() {
+function loadDashboard(){
 
-    console.log("Dashboard Loaded");
+const page=document.getElementById("pageContainer");
 
-}/* ==========================================================
-   Toast Notifications
-========================================================== */
+page.innerHTML=`
 
-function showToast(message = "Saved Successfully") {
+<header class="top-header">
 
-    const toast = document.getElementById("toast");
+<div>
 
-    if (!toast) return;
+<h2 id="greeting">
 
-    toast.textContent = message;
+Welcome to NEXO 👋
 
-    toast.classList.add("show");
+</h2>
 
-    clearTimeout(showToast.timeout);
+<p class="subtitle">
 
-    showToast.timeout = setTimeout(() => {
+Everything starts here.
 
-        toast.classList.remove("show");
+</p>
 
-    }, 3000);
+<p class="date">
 
-}
+Alpha 0.3
 
+</p>
 
-/* ==========================================================
-   Modal System
-========================================================== */
+</div>
 
-function openModal(content = "") {
+</header>
 
-    const overlay = document.getElementById("modalOverlay");
+<section class="progress-card">
 
-    const modal = document.getElementById("modalContent");
+<div class="progress-header">
 
-    if (!overlay || !modal) return;
+<h3>Planning Progress</h3>
 
-    modal.innerHTML = content;
+<span>72%</span>
 
-    overlay.style.display = "flex";
+</div>
 
-}
+<div class="progress-bar">
 
-function closeModal() {
+<div class="progress-fill" style="width:72%"></div>
 
-    const overlay = document.getElementById("modalOverlay");
+</div>
 
-    if (!overlay) return;
+<p class="progress-text">
 
-    overlay.style.display = "none";
+Ready to start building your event.
 
-}
+</p>
 
-document.addEventListener("click", (event) => {
+</section>
 
-    const overlay = document.getElementById("modalOverlay");
+<section class="stats-grid">
 
-    if (!overlay) return;
+<div class="stat-card">
 
-    if (event.target === overlay) {
+<h4>Families</h4>
 
-        closeModal();
+<h1>0</h1>
 
-    }
+<p>No families yet</p>
 
-});
+</div>
 
+<div class="stat-card">
 
-/* ==========================================================
-   Dashboard Data
-========================================================== */
+<h4>Guests</h4>
 
-function updateGuestStats(total, confirmed, pending) {
+<h1>0</h1>
 
-    const guestCount = document.getElementById("guestCount");
+<p>No guests yet</p>
 
-    const confirmedCount = document.getElementById("confirmedCount");
+</div>
 
-    const pendingCount = document.getElementById("pendingCount");
+<div class="stat-card">
 
-    if (guestCount) guestCount.textContent = total;
+<h4>Confirmed</h4>
 
-    if (confirmedCount) confirmedCount.textContent = confirmed;
+<h1>0</h1>
 
-    if (pendingCount) pendingCount.textContent = pending;
+<p>No RSVPs yet</p>
 
-}
+</div>
 
+</section>
 
-/* ==========================================================
-   Animated Progress
-========================================================== */
-
-function animateProgress(targetPercent) {
-
-    let current = 0;
-
-    const interval = setInterval(() => {
-
-        current++;
-
-        updateProgress(current);
-
-        if (current >= targetPercent) {
-
-            clearInterval(interval);
-
-        }
-
-    }, 15);
-
-}/* ==========================================================
-   Navigation Pages
-========================================================== */
-
-function showFamilies() {
-
-    showToast("Families module coming soon");
-
-    console.log("Families");
+`;
 
 }
-
-function showInvitations() {
-
-    showToast("Invitations module coming soon");
-
-    console.log("Invitations");
-
-}
-
-function showWebsite() {
-
-    showToast("Website Builder coming soon");
-
-    console.log("Website");
-
-}
-
-function showAnalytics() {
-
-    showToast("Analytics coming soon");
-
-    console.log("Analytics");
-
-}
-
-function showSettings() {
-
-    showToast("Settings coming soon");
-
-    console.log("Settings");
-
-}
-
-
-/* ==========================================================
-   Quick Actions
-========================================================== */
-
-function addFamily() {
-
-    openModal(`
-
-        <h2>Add Family</h2>
-
-        <p>This feature will be built in Alpha 0.4.</p>
-
-        <br>
-
-        <button class="btn btn-primary" onclick="closeModal()">
-
-            Close
-
-        </button>
-
-    `);
-
-}
-
-function openWebsiteEditor() {
-
-    showWebsite();
-
-}
-
-function sendReminder() {
-
-    showToast("Reminder sent (demo)");
-
-}
-
-function viewAnalytics() {
-
-    showAnalytics();
-
-}
-
-
-/* ==========================================================
-   Utilities
-========================================================== */
-
-function formatNumber(value) {
-
-    return Number(value).toLocaleString();
-
-}
-
-function setDashboardData(data) {
-
-    updateGuestStats(
-
-        data.totalGuests,
-
-        data.confirmedGuests,
-
-        data.pendingGuests
-
-    );
-
-    updateProgress(data.progress);
-
-}
-
-
-/* ==========================================================
-   Demo Data
-========================================================== */
-
-const dashboardData = {
-
-    totalGuests: 152,
-
-    confirmedGuests: 119,
-
-    pendingGuests: 33,
-
-    progress: 72
-
-};
-
-setDashboardData(dashboardData);
-
-
-/* ==========================================================
-   Future Expansion
-========================================================== */
-
-// Families Module
-// Invitations Module
-// Website Builder
-// Analytics Dashboard
-// Settings Manager
-// Authentication
-// Database Integration
-// API Layer
