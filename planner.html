@@ -1,276 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>NEXO | Planner Dashboard</title>
 
     <link rel="stylesheet" href="planner.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
-<div class="sidebar">
+    <!-- ==========================
+         Sidebar
+    =========================== -->
 
-    <div class="logo">
-        <h1>NEXO</h1>
-        <p>Planner Dashboard</p>
-    </div>
+    <aside class="sidebar">
 
-    <nav>
+        <div class="logo">
 
-       <nav>
+            <h1>NEXO</h1>
 
-<a href="#" class="active" onclick="showDashboard(this)">
-🏠 Dashboard
-</a>
+            <p>Planner Dashboard</p>
 
-<a href="#" onclick="showFamilies(this)">
-👨‍👩‍👧 Families
-</a>
+        </div>
 
-<a href="#" onclick="showRSVPs(this)">
-💌 RSVPs
-</a>
+        <nav>
 
-<a href="#" onclick="showMessages(this)">
-💬 Messages
-</a>
+            <a href="#" class="active" onclick="showDashboard(this)">
+                🏠 Dashboard
+            </a>
 
-<a href="#" onclick="showSettings(this)">
-⚙️ Settings
-</a>
+            <a href="#" onclick="showFamilies(this)">
+                👨‍👩‍👧 Families
+            </a>
 
-</nav>
+            <a href="#" onclick="showInvitations(this)">
+                💌 Invitations
+            </a>
 
-        <a href="#">
-            👨‍👩‍👧 Families
-        </a>
+            <a href="#" onclick="showWebsite(this)">
+                🌐 Website
+            </a>
 
-        <a href="#">
-            💌 RSVPs
-        </a>
+            <a href="#" onclick="showAnalytics(this)">
+                📊 Analytics
+            </a>
 
-        <a href="#">
-            💬 Messages
-        </a>
+            <a href="#" onclick="showSettings(this)">
+                ⚙️ Settings
+            </a>
 
-        <a href="#">
-            🎨 Website Editor
-        </a>
+        </nav>
 
-        <a href="#">
-            🖼 Gallery
-        </a>
+        <div class="sidebar-footer">
 
-        <a href="#">
-            ⚙️ Settings
-        </a>
+            <strong>NEXO Alpha 0.3</strong>
 
-    </nav>
+            <br>
 
-</div>
+            Planner Workspace
 
-<div class="main">
+        </div>
 
-<div id="workspace">
+    </aside>
 
-<header class="top-header">
+    <!-- ==========================
+         Main Workspace
+    =========================== -->
 
-<div>
+    <main class="main">
 
-<h2 id="greeting">
-Good Evening, Hector 👋
-</h2>
+        <div id="workspace">
 
-<p class="subtitle">
+            <!-- Header -->
 
-Hector & Laura Wedding
+            <header class="top-header">
 
-</p>
+                <div>
 
-<p class="date">
+                    <h2 id="greeting">
 
-Saturday • September 12, 2026
+                        Good Evening, Hector 👋
 
-</p>
+                    </h2>
 
-</div>
+                    <p class="subtitle">
 
-</header>
+                        Hector & Laura Wedding
 
-<section class="progress-card">
+                    </p>
 
-<div class="progress-header">
+                    <p class="date">
 
-<h3>Planning Progress</h3>
+                        Saturday • September 12, 2026
 
-<span id="progressPercent">
+                    </p>
 
-72%
+                </div>
 
-</span>
+            </header>
+                        <!-- Planning Progress -->
 
-</div>
+            <section class="progress-card">
 
-<div class="progress-bar">
+                <div class="progress-header">
 
-<div class="progress-fill" id="progressFill"></div>
+                    <h3>Planning Progress</h3>
 
-</div>
+                    <span id="progressPercent">
 
-<p class="progress-text">
+                        72%
 
-You're making great progress.
+                    </span>
 
-Keep going!
+                </div>
 
-</p>
+                <div class="progress-bar">
 
-</section>
+                    <div class="progress-fill" id="progressFill"></div>
 
-<section class="stats-grid">
+                </div>
 
-<div class="stat-card">
+                <p class="progress-text">
 
-<h4>Total Guests</h4>
+                    You're making great progress.
+                    Keep going!
 
-<h1 id="guestCount">
+                </p>
 
-152
+            </section>
 
-</h1>
 
-<p>Across all families</p>
+            <!-- Dashboard Statistics -->
 
-</div>
+            <section class="stats-grid">
 
-<div class="stat-card">
+                <div class="stat-card">
 
-<h4>Confirmed</h4>
+                    <h4>Total Guests</h4>
 
-<h1 id="confirmedCount">
+                    <h1 id="guestCount">
 
-119
+                        152
 
-</h1>
+                    </h1>
 
-<p>Accepted Invitations</p>
+                    <p>Across all families</p>
 
-</div>
+                </div>
 
-<div class="stat-card">
+                <div class="stat-card">
 
-<h4>Pending</h4>
+                    <h4>Confirmed</h4>
 
-<h1 id="pendingCount">
+                    <h1 id="confirmedCount">
 
-33
+                        119
 
-</h1>
+                    </h1>
 
-<p>Awaiting Response</p>
+                    <p>Accepted Invitations</p>
 
-</div>
+                </div>
 
-</section>
+                <div class="stat-card">
 
-<section class="dashboard-grid">
+                    <h4>Pending</h4>
 
-<div class="panel">
+                    <h1 id="pendingCount">
 
-<h3>
+                        33
 
-Recent Activity
+                    </h1>
 
-</h3>
+                    <p>Awaiting Response</p>
 
-<div class="activity">
+                </div>
 
-<div>
+            </section>
 
-✅ Perez Family RSVP'd
 
-</div>
+            <!-- Dashboard Grid -->
 
-<div>
+            <section class="dashboard-grid">
 
-💬 Garcia Family sent a message
+                <!-- Left Column -->
 
-</div>
+                <div class="panel">
 
-<div>
+                    <h3>
 
-🎉 Martinez Family confirmed
+                        Recent Activity
 
-</div>
+                    </h3>
 
-<div>
+                    <div class="activity">
 
-📷 Gallery updated
+                        <div>
 
-</div>
+                            ✅ Perez Family RSVP'd
 
-</div>
+                        </div>
 
-</div>
+                        <div>
 
-<div class="panel">
+                            💌 Garcia Family invitation delivered
 
-<h3>
+                        </div>
 
-Quick Actions
+                        <div>
 
-</h3>
+                            👨‍👩‍👧 Martinez Family added
 
-<div class="quick-buttons">
+                        </div>
 
-<button>
+                        <div>
 
-➕ Add Family
+                            🌐 Website updated
 
-</button>
+                        </div>
 
-<button>
+                    </div>
 
-🎨 Edit Website
+                </div>
+                            <!-- Planning Progress -->
 
-</button>
+            <section class="progress-card">
 
-<button>
+                <div class="progress-header">
 
-📨 Send Reminder
+                    <h3>Planning Progress</h3>
 
-</button>
+                    <span id="progressPercent">
 
-<button>
+                        72%
 
-🖼 Upload Photos
+                    </span>
 
-</button>
+                </div>
 
-</div>
+                <div class="progress-bar">
 
-</div>
+                    <div class="progress-fill" id="progressFill"></div>
 
-</section>
+                </div>
 
-<footer>
+                <p class="progress-text">
 
-NEXO v1.1
+                    You're making great progress.
+                    Keep going!
 
-</footer>
+                </p>
 
-</div>
+            </section>
 
-</div>
 
-<script src="planner.js"></script>
+            <!-- Dashboard Statistics -->
 
-</body>
-</html>
+            <section class="stats-grid">
+
+                <div class="stat-card">
+
+                    <h4>Total Guests</h4>
+
+                    <h1 id="guestCount">
+
+                        152
+
+                    </h1>
+
+                    <p>Across all families</p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h4>Confirmed</h4>
+
+                    <h1 id="confirmedCount">
+
+                        119
+
+                    </h1>
+
+                    <p>Accepted Invitations</p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h4>Pending</h4>
+
+                    <h1 id="pendingCount">
+
+                        33
+
+                    </h1>
+
+                    <p>Awaiting Response</p>
+
+                </div>
+
+            </section>
+
+
+            <!-- Dashboard Grid -->
+
+            <section class="dashboard-grid">
+
+                <!-- Left Column -->
+
+                <div class="panel">
+
+                    <h3>
+
+                        Recent Activity
+
+                    </h3>
+
+                    <div class="activity">
+
+                        <div>
+
+                            ✅ Perez Family RSVP'd
+
+                        </div>
+
+                        <div>
+
+                            💌 Garcia Family invitation delivered
+
+                        </div>
+
+                        <div>
+
+                            👨‍👩‍👧 Martinez Family added
+
+                        </div>
+
+                        <div>
+
+                            🌐 Website updated
+
+                        </div>
+
+                    </div>
+
+                </div>
+            
