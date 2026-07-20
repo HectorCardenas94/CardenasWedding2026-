@@ -88,11 +88,9 @@ Will be celebrating with us
 
         <textarea placeholder="Leave Hector & Laura a message..."></textarea>
 
-        <button onclick="thankYou()">
-
-            Submit RSVP
-
-        </button>
+        <button onclick="submitRSVP()">
+    Submit RSVP
+</button>
 
     `;
 
