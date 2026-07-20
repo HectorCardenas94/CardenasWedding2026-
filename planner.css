@@ -91,9 +91,125 @@ body{
     min-height:100vh;
 }
 
-/* ==========================
+/* ==========================================
    Sidebar
-========================== */
+========================================== */
+
+.sidebar{
+
+    width:280px;
+
+    background:var(--card);
+
+    border-right:1px solid var(--border);
+
+    padding:35px 24px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    position:sticky;
+
+    top:0;
+
+    height:100vh;
+
+}
+
+.logo{
+
+    margin-bottom:45px;
+
+}
+
+.logo h1{
+
+    font-size:34px;
+
+    color:var(--primary);
+
+    letter-spacing:4px;
+
+    font-weight:700;
+
+}
+
+.logo p{
+
+    margin-top:8px;
+
+    color:#9a9a9a;
+
+    font-size:14px;
+
+}
+
+nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+nav a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    text-decoration:none;
+
+    color:#555;
+
+    padding:15px 18px;
+
+    border-radius:14px;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+}
+
+nav a:hover{
+
+    background:#f6f1e8;
+
+    color:var(--primary);
+
+    transform:translateX(4px);
+
+}
+
+nav a.active{
+
+    background:#f5efe4;
+
+    color:var(--primary);
+
+    box-shadow:inset 4px 0 0 var(--primary);
+
+}
+
+.sidebar-footer{
+
+    margin-top:auto;
+
+    padding-top:25px;
+
+    border-top:1px solid var(--border);
+
+    color:#999;
+
+    font-size:13px;
+
+}
 
 .sidebar{
     width:270px;
