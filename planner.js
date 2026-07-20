@@ -850,23 +850,31 @@ function viewFamily(index){
 
             <tr>
 
-                <td>${member.name}</td>
+           <td>${member.name}</td>
 
-                <td>${member.meal}</td>
+<td>${member.meal}</td>
 
-                <td>${member.rsvp}</td>
+<td>${member.rsvp}</td>
 
-                <td>
+<td>
 
-                    <button
-                    class="secondary-btn"
-                    onclick="removeGuest(${index},${memberIndex})">
+    <button
+    class="primary-btn"
+    onclick="openGuestProfile(${index},${memberIndex})">
 
-                    Remove
+    Open
 
-                    </button>
+    </button>
 
-                </td>
+    <button
+    class="secondary-btn"
+    onclick="removeGuest(${index},${memberIndex})">
+
+    Remove
+
+    </button>
+
+</td>
 
             </tr>
 
