@@ -31,8 +31,6 @@ function openInvitation(id){
 
     page.innerHTML = `
 
-page.innerHTML = `
-
 <header class="top-header">
 
     <button
