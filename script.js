@@ -101,7 +101,43 @@ Will be celebrating with us
 function thankYou() {
 
 document.querySelector(".container").innerHTML = `
+async function submitRSVP() {
 
+    const guestCards = document.querySelectorAll(".guest-card");
+
+    const attending = [];
+
+    guestCards.forEach(card => {
+
+        const checkbox = card.querySelector("input");
+        const name = card.querySelector(".guest-name").textContent;
+
+        if (checkbox.checked) {
+            attending.push(name);
+        }
+
+    });
+
+    const message = document.querySelector("textarea").value;
+
+    try {
+
+        await saveRSVP({
+            family: document.querySelector("h2").textContent,
+            attending: attending,
+            message: message
+        });
+
+        thankYou();
+
+    } catch (error) {
+
+        console.error(error);
+        alert("There was a problem saving your RSVP.");
+
+    }
+
+}
 <h1>Thank You ❤️</h1>
 
 <p style="margin-top:30px;line-height:2;">
