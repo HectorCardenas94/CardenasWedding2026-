@@ -456,7 +456,7 @@ id="familySearch"
 
 type="text"
 
-placeholder="Search families..."
+placeholder="Search families or guests..."
 
 oninput="filterFamilies()">
 
