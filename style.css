@@ -312,4 +312,38 @@ resize:none;
 
 font-family:Poppins,sans-serif;
 
+}.guest-card{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    background:white;
+    border:1px solid #e8dfd2;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:16px;
+    transition:all .25s ease;
+    box-shadow:0 6px 18px rgba(0,0,0,.05);
+}
+
+.guest-card:hover{
+    transform:translateY(-3px);
+    border-color:#b79d6b;
+    box-shadow:0 12px 30px rgba(183,157,107,.18);
+}
+
+.guest-card input{
+    width:22px;
+    height:22px;
+    accent-color:#b79d6b;
+}
+
+.guest-name{
+    font-family:"Cormorant Garamond",serif;
+    font-size:28px;
+}
+
+.guest-status{
+    color:#888;
+    font-size:14px;
+    margin-top:4px;
 }
