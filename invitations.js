@@ -130,12 +130,6 @@ function renderInvitationCards() {
                 <div class="button-row">
 
                     <button
-                        class="secondary-btn"
-                        onclick="showToast('Coming Soon')">
-                        Open
-                    </button>
-
-                    <button
     class="secondary-btn"
     onclick="openInvitation('${inv.id}')">
     Open
