@@ -487,17 +487,13 @@ oninput="filterFamilies()">
 
 </div>
 
-<table class="data-table">
+<div id="familyTable" class="family-grid">
 
-<thead>
+${cards}
 
-<tr>
+</div>
 
-<th>Family</th>
-<th>Guests</th>
-<th>Phone</th>
-<th>Status</th>
-<th>Actions</th>
+</section>
 
 </tr>
 
