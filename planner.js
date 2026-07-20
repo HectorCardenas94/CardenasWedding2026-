@@ -61,6 +61,16 @@ function showInvitations(event,link){
 
 }
 
+function showGuests(event, link){
+
+    if(event) event.preventDefault();
+
+    activateNav(link);
+
+    loadGuests();
+
+}
+
 function showWebsite(event,link){
 
     if(event) event.preventDefault();
