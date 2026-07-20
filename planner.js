@@ -1262,7 +1262,25 @@ function addGuest(index){
 
 }
 
-function removeGuest(familyIndex,guestIndex){
+function removeGuest(familyIndex, guestIndex){
+
+    if(!confirm("Remove this guest?")){
+
+        return;
+
+    }
+
+    const families = getFamilies();
+
+    families[familyIndex].members.splice(guestIndex,1);
+
+    saveFamilies(families);
+
+    showToast("Guest removed.");
+
+    viewFamily(familyIndex);
+
+}
 
 function openGuestProfile(familyIndex, guestIndex){
 
@@ -1340,8 +1358,6 @@ onclick="viewFamily(${familyIndex})">
 
 <div class="form-group">
 
-<div class="form-group">
-
 <label>Meal Selection</label>
 
 <select id="guestMeal">
@@ -1357,6 +1373,8 @@ onclick="viewFamily(${familyIndex})">
 </select>
 
 </div>
+
+<div class="form-group">
 
 <label>Phone</label>
 
@@ -1385,6 +1403,8 @@ value="${guest.email || ""}">
 <textarea
 id="guestNotes"
 rows="4">${guest.notes || ""}</textarea>
+
+</div>
 
 <div class="form-group">
 
@@ -1425,9 +1445,6 @@ ${guest.plusOne ? "checked" : ""}>
 
 </div>
 
-
-</div>
-
 <div class="modal-actions">
 
 <button
@@ -1441,15 +1458,17 @@ Save Changes
 </div>
 
 </section>
+
 `;
 
 }
+
 function saveGuestProfile(familyIndex, guestIndex){
 
     const families = getFamilies();
 
     const guest = families[familyIndex].members[guestIndex];
-    
+
     guest.meal = document.getElementById("guestMeal").value;
 
     guest.phone = document.getElementById("guestPhone").value.trim();
@@ -1458,13 +1477,11 @@ function saveGuestProfile(familyIndex, guestIndex){
 
     guest.notes = document.getElementById("guestNotes").value.trim();
 
-guest.plusOne = document.getElementById("guestPlusOne").checked;
+    guest.table = document.getElementById("guestTable").value.trim();
 
-guest.type = document.getElementById("guestType").value;
+    guest.plusOne = document.getElementById("guestPlusOne").checked;
 
-guest.plusOne = document.getElementById("guestPlusOne").checked;
-
-guest.type = document.getElementById("guestType").value;
+    guest.type = document.getElementById("guestType").value;
 
     saveFamilies(families);
 
@@ -1475,17 +1492,6 @@ guest.type = document.getElementById("guestType").value;
     openGuestProfile(familyIndex, guestIndex);
 
 }
-    const families=getFamilies();
-
-    families[familyIndex].members.splice(guestIndex,1);
-
-    saveFamilies(families);
-    
-
-    showToast("Guest removed.");
-
-    viewFamily(familyIndex);
-    }
     
     /* ==========================================================
    Dashboard Data Engine
