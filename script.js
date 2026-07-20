@@ -1,65 +1,49 @@
-const families = {
-    carlos: {
-        family: "Carlos Family",
-        guests: [
-            "Carlos",
-            "Yoli",
-            "Michael",
-            "Ash",
-            "Ash's Guest"
-        ]
-    },
+let families = [];
 
-    miguel: {
-        family: "Miguel & Mariela Family",
-        guests: [
-            "Miguel",
-            "Mariela"
-        ]
-    },
+fetch("guests.json")
+    .then(response => response.json())
+    .then(data => {
+        families = data;
+    });
 
-    hermo: {
-        family: "Hermo Family",
-        guests: [
-            "Hermo",
-            "Lupita",
-            "Izzy",
-            "Emm"
-        ]
-    }
-};
+function findGuest() {
 
-function findGuest(){
-
-    const input = document
+    const search = document
         .getElementById("guestSearch")
         .value
         .trim()
         .toLowerCase();
 
-    if(!families[input]){
+    const family = families.find(f => f.search === search);
+
+    if (!family) {
         alert("Sorry, we couldn't find your invitation.");
         return;
     }
 
-    showFamily(families[input]);
+    showFamily(family);
+
 }
 
-function showFamily(data){
+function showFamily(family) {
 
     let html = `
-        <h2>${data.family}</h2>
-        <p style="margin-bottom:25px;">
-            Please select everyone who will be attending.
+        <h2>Welcome, ${family.family}</h2>
+
+        <p style="margin-bottom:30px;">
+            Please select everyone attending.
         </p>
     `;
 
-    data.guests.forEach(name=>{
+    family.guests.forEach(person => {
 
         html += `
             <label class="guest-card">
+
                 <input type="checkbox">
-                ${name}
+
+                ${person}
+
             </label>
         `;
 
@@ -67,11 +51,12 @@ function showFamily(data){
 
     html += `
 
-        <textarea
-        placeholder="Leave a message for Hector & Laura (optional)"></textarea>
+        <textarea placeholder="Leave Hector & Laura a message..."></textarea>
 
         <button onclick="thankYou()">
+
             Submit RSVP
+
         </button>
 
     `;
@@ -80,13 +65,13 @@ function showFamily(data){
 
 }
 
-function thankYou(){
+function thankYou() {
 
-document.querySelector(".container").innerHTML=`
+document.querySelector(".container").innerHTML = `
 
 <h1>Thank You ❤️</h1>
 
-<p style="margin-top:25px;line-height:2;">
+<p style="margin-top:30px;line-height:2;">
 
 We can't wait to celebrate with you.
 
