@@ -1094,6 +1094,94 @@ function addGuest(index){
 
 function removeGuest(familyIndex,guestIndex){
 
+function openGuestProfile(familyIndex, guestIndex){
+
+    const families = getFamilies();
+
+    const family = families[familyIndex];
+
+    const guest = family.members[guestIndex];
+
+    document.getElementById("pageContainer").innerHTML = `
+
+<header class="top-header">
+
+<div>
+
+<h2>${guest.name}</h2>
+
+<p class="subtitle">
+
+Guest Profile
+
+</p>
+
+</div>
+
+<div>
+
+<button
+class="secondary-btn"
+onclick="viewFamily(${familyIndex})">
+
+← Back
+
+</button>
+
+</div>
+
+</header>
+
+<section class="stats-grid">
+
+<div class="stat-card">
+
+<h4>Family</h4>
+
+<h1>${family.name}</h1>
+
+</div>
+
+<div class="stat-card">
+
+<h4>RSVP</h4>
+
+<h1>${guest.rsvp}</h1>
+
+</div>
+
+<div class="stat-card">
+
+<h4>Meal</h4>
+
+<h1>${guest.meal}</h1>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h3>Guest Information</h3>
+
+<p><strong>Name:</strong> ${guest.name}</p>
+
+<p><strong>Meal:</strong> ${guest.meal}</p>
+
+<p><strong>RSVP:</strong> ${guest.rsvp}</p>
+
+<p><strong>Phone:</strong> Coming Soon</p>
+
+<p><strong>Email:</strong> Coming Soon</p>
+
+<p><strong>Notes:</strong> Coming Soon</p>
+
+</section>
+
+`;
+
+}
+
     const families=getFamilies();
 
     families[familyIndex].members.splice(guestIndex,1);
