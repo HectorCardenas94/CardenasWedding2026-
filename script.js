@@ -1,3 +1,4 @@
+import { saveRSVP } from "./firebase.js";
 let families = [];
 
 fetch("guests.json")
