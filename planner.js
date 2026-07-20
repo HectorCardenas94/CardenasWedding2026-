@@ -1212,7 +1212,27 @@ Save Changes
 `;
 
 }
+function saveGuestProfile(familyIndex, guestIndex){
 
+    const families = getFamilies();
+
+    const guest = families[familyIndex].members[guestIndex];
+
+    guest.phone = document.getElementById("guestPhone").value.trim();
+
+    guest.email = document.getElementById("guestEmail").value.trim();
+
+    guest.notes = document.getElementById("guestNotes").value.trim();
+
+    saveFamilies(families);
+
+    logActivity(`Updated guest "${guest.name}"`);
+
+    showToast("Guest profile updated.");
+
+    openGuestProfile(familyIndex, guestIndex);
+
+}
     const families=getFamilies();
 
     families[familyIndex].members.splice(guestIndex,1);
