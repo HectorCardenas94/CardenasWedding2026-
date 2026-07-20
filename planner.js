@@ -633,7 +633,7 @@ function addFamily(){
     });
 
     saveFamilies(families);
-
+logActivity(`Added family "${name}"`);
     closeModal();
 
     showToast("Family added successfully.");
@@ -742,7 +742,7 @@ function saveEditedFamily(index){
         document.getElementById("familyStatus").value;
 
     saveFamilies(families);
-
+logActivity(`Updated family "${families[index].name}"`);
     closeModal();
 
     showToast("Family updated.");
@@ -760,11 +760,11 @@ function deleteFamily(index){
     }
 
     const families = getFamilies();
-
+const familyName = families[index].name;
     families.splice(index,1);
 
     saveFamilies(families);
-
+logActivity(`Deleted family "${familyName}"`);
     showToast("Family deleted.");
 
     loadFamilies();
