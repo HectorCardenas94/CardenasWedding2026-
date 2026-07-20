@@ -366,7 +366,7 @@ function loadFamilies(){
 
     const families = getFamilies();
 
-    let rows = "";
+    let cards = "";
 
     if(families.length === 0){
 
