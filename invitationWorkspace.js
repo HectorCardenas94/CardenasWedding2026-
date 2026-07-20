@@ -9,7 +9,9 @@ function openInvitation(id){
 
     const invitations = getInvitations();
 
-    const families = getFamilies();
+    const families = JSON.parse(
+    localStorage.getItem("nexo_families") || "[]"
+);
 
     const invitation = invitations.find(
         inv => inv.id === id
