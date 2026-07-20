@@ -38,7 +38,7 @@ function findGuest() {
         alert("Sorry, we couldn't find your invitation.");
         return;
     }
-
+setStep(2);
     showFamily(family);
 
 }
