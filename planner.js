@@ -95,98 +95,121 @@ function showSettings(event,link){
    Dashboard
 ========================================================== */
 
-function loadDashboard(){
+function loadDashboard() {
 
-const page=document.getElementById("pageContainer");
+    const page = document.getElementById("pageContainer");
 
-page.innerHTML=`
+    // Load saved data
+    const families = JSON.parse(localStorage.getItem("families")) || [];
+    const invitations = JSON.parse(localStorage.getItem("invitations")) || [];
+
+    // Count guests
+    let guestCount = 0;
+
+    families.forEach(family => {
+        if (Array.isArray(family.guests)) {
+            guestCount += family.guests.length;
+        } else if (family.guestCount) {
+            guestCount += Number(family.guestCount);
+        } else {
+            guestCount++;
+        }
+    });
+
+    // Placeholder progress calculation
+    let progress = 0;
+
+    if (families.length > 0) progress += 25;
+    if (guestCount > 0) progress += 25;
+    if (invitations.length > 0) progress += 25;
+
+    // Reserve the last 25% for RSVP later
+    const progressText =
+        progress === 0
+            ? "Let's start planning your event!"
+            : "Your wedding planning is underway!";
+
+    page.innerHTML = `
 
 <header class="top-header">
 
-<div>
+    <div>
 
-<h2 id="greeting">
+        <h2 id="greeting">
+            Welcome to NEXO 👋
+        </h2>
 
-Welcome to NEXO 👋
+        <p class="subtitle">
+            Everything starts here.
+        </p>
 
-</h2>
+        <p class="date">
+            Alpha 0.3
+        </p>
 
-<p class="subtitle">
-
-Everything starts here.
-
-</p>
-
-<p class="date">
-
-Alpha 0.3
-
-</p>
-
-</div>
+    </div>
 
 </header>
 
 <section class="progress-card">
 
-<div class="progress-header">
+    <div class="progress-header">
 
-<h3>Planning Progress</h3>
+        <h3>Planning Progress</h3>
 
-<span>72%</span>
+        <span>${progress}%</span>
 
-</div>
+    </div>
 
-<div class="progress-bar">
+    <div class="progress-bar">
 
-<div class="progress-fill" style="width:72%"></div>
+        <div class="progress-fill" style="width:${progress}%"></div>
 
-</div>
+    </div>
 
-<p class="progress-text">
+    <p class="progress-text">
 
-Ready to start building your event.
+        ${progressText}
 
-</p>
+    </p>
 
 </section>
 
 <section class="stats-grid">
 
-<div class="stat-card">
+    <div class="stat-card">
 
-<h4>Families</h4>
+        <h4>Families</h4>
 
-<h1>0</h1>
+        <h1>${families.length}</h1>
 
-<p>No families yet</p>
+        <p>${families.length === 1 ? "Family Created" : "Families Created"}</p>
 
-</div>
+    </div>
 
-<div class="stat-card">
+    <div class="stat-card">
 
-<h4>Guests</h4>
+        <h4>Guests</h4>
 
-<h1>0</h1>
+        <h1>${guestCount}</h1>
 
-<p>No guests yet</p>
+        <p>Total Guests</p>
 
-</div>
+    </div>
 
-<div class="stat-card">
+    <div class="stat-card">
 
-<h4>Confirmed</h4>
+        <h4>Invitations</h4>
 
-<h1>0</h1>
+        <h1>${invitations.length}</h1>
 
-<p>No RSVPs yet</p>
+        <p>Invitations Created</p>
 
-</div>
+    </div>
 
 </section>
 
 `;
-
 }
 /* ==========================================================
    Shared Helpers
