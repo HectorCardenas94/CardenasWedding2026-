@@ -382,50 +382,70 @@ function loadFamilies(){
 
         families.forEach((family,index)=>{
 
-            rows += `
+            cards += `
 
-            <tr>
+<div class="family-card">
 
-                <td>${family.name}</td>
+    <div class="family-card-header">
 
-                <td>${family.guests || 0}</td>
+        <div>
 
-                <td>${family.phone || "-"}</td>
+            <h3>${family.name}</h3>
 
-                <td>${family.status || "Pending"}</td>
+            <p>${family.phone || "No phone number"}</p>
 
-                <td>
+        </div>
 
-                    <button
-                    class="primary-btn"
-                    onclick="viewFamily(${index})">
+        <span class="family-count">
 
-                    Open
+            👥 ${family.guests || 0}
 
-                    </button>
+        </span>
 
-                    <button
-                    class="secondary-btn"
-                    onclick="editFamily(${index})">
+    </div>
 
-                    Edit
+    <div class="family-card-status">
 
-                    </button>
+        <span class="status-badge">
 
-                    <button
-                    class="danger-btn"
-                    onclick="deleteFamily(${index})">
+            ${family.status || "Pending"}
 
-                    Delete
+        </span>
 
-                    </button>
+    </div>
 
-                </td>
+    <div class="family-card-actions">
 
-            </tr>
+        <button
+        class="primary-btn"
+        onclick="viewFamily(${index})">
 
-            `;
+        Open
 
+        </button>
+
+        <button
+        class="secondary-btn"
+        onclick="editFamily(${index})">
+
+        Edit
+
+        </button>
+
+        <button
+        class="danger-btn"
+        onclick="deleteFamily(${index})">
+
+        Delete
+
+        </button>
+
+    </div>
+
+</div>
+
+`;
+            
         });
 
     }
