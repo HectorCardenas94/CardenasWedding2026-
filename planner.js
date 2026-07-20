@@ -666,6 +666,29 @@ ${rows || `
 
 }
 
+function filterGuests(){
+
+    const search = document
+        .getElementById("guestSearch")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const rows = document.querySelectorAll(".data-table tbody tr");
+
+    rows.forEach(row=>{
+
+        row.style.display =
+            row.textContent
+                .toLowerCase()
+                .includes(search)
+                    ? ""
+                    : "none";
+
+    });
+
+}
+
     page.innerHTML = `
 
 <header class="top-header">
