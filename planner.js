@@ -209,6 +209,8 @@ function loadDashboard() {
 
 </section>
 
+${buildRecentActivity()}
+
 `;
 }
 /* ==========================================================
