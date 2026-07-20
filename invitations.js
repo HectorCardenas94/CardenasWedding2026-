@@ -204,7 +204,9 @@ function openCreateInvitationModal() {
 
 function createInvitation() {
 
-    const familyId = document.getElementById("inviteFamily").value;
+    alert("Create button works");
+
+const familyId = document.getElementById("inviteFamily").value;
 
     const invitations = getInvitations();
 
