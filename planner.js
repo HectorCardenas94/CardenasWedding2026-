@@ -1236,6 +1236,10 @@ function saveGuestProfile(familyIndex, guestIndex){
 
     guest.notes = document.getElementById("guestNotes").value.trim();
 
+guest.plusOne = document.getElementById("guestPlusOne").checked;
+
+guest.type = document.getElementById("guestType").value;
+
     saveFamilies(families);
 
     logActivity(`Updated guest "${guest.name}"`);
