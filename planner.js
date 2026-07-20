@@ -496,6 +496,138 @@ Manage every guest in one place.
 
 <section class="card">
 
+<div class="toolbar">
+
+<input
+
+id="guestSearch"
+
+type="text"
+
+placeholder="Search guests..."
+
+oninput="filterGuests()">
+
+</div>
+
+<table class="data-table">
+
+<thead>
+
+<tr>
+
+<th>Guest</th>
+
+<th>Family</th>
+
+<th>RSVP</th>
+
+<th>Meal</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+${rows || `
+<tr>
+<td colspan="5">No guests have been added yet.</td>
+</tr>
+`}
+
+</tbody>
+
+</table>
+
+</section>
+
+`;
+
+}
+
+function loadGuests(){
+
+    const page = document.getElementById("pageContainer");
+
+    const families = getFamilies();
+
+    let rows = "";
+
+    families.forEach((family, familyIndex)=>{
+
+        if(!family.members) return;
+
+        family.members.forEach((guest, guestIndex)=>{
+
+            rows += `
+
+<tr>
+
+<td>${guest.name}</td>
+
+<td>${family.name}</td>
+
+<td>${guest.rsvp}</td>
+
+<td>${guest.meal}</td>
+
+<td>
+
+<button
+class="primary-btn"
+onclick="openGuestProfile(${familyIndex},${guestIndex})">
+
+Open
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+        });
+
+    });
+
+    page.innerHTML = `
+
+<header class="top-header">
+
+<div>
+
+<h2>Guest Directory</h2>
+
+<p class="subtitle">
+
+Manage every guest in one place.
+
+</p>
+
+</div>
+
+</header>
+
+<section class="card">
+
+<div class="toolbar">
+
+<input
+
+id="guestSearch"
+
+type="text"
+
+placeholder="Search guests..."
+
+oninput="filterGuests()">
+
+</div>
+
 <table class="data-table">
 
 <thead>
