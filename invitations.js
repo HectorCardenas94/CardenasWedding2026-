@@ -63,7 +63,7 @@ Create and manage invitations.
 
 <button
 class="primary-btn"
-onclick="showToast('Invitations Part 2 Coming Next')">
+onclick="openCreateInvitationModal()">
 
 ＋ Create Invitation
 
@@ -71,18 +71,129 @@ onclick="showToast('Invitations Part 2 Coming Next')">
 
 </header>
 
-<section class="card">
-
-<h3>No Invitations Yet</h3>
-
-<p>
-
-Your invitations will appear here.
-
-</p>
+<section id="invitationList">
 
 </section>
 
 `;
+
+    renderInvitationCards();
+
+}
+
+/* ==========================================================
+   Invitations UI - Part 1A
+========================================================== */
+
+function renderInvitationCards() {
+
+    const invitations = getInvitations();
+    const families = JSON.parse(localStorage.getItem("nexo_families") || "[]");
+
+    const container = document.getElementById("invitationList");
+
+    if (!container) return;
+
+    if (invitations.length === 0) {
+
+        container.innerHTML = `
+            <section class="card">
+                <h3>No Invitations Yet</h3>
+                <p>Create your first invitation.</p>
+            </section>
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML = invitations.map(inv => {
+
+        const family = families.find(f => f.id === inv.familyId);
+
+        const guestCount = family?.guests?.length || 0;
+
+        return `
+            <section class="card invitation-card">
+
+                <h3>${family ? family.name : "Unknown Family"}</h3>
+
+                <p><strong>Guests:</strong> ${guestCount}</p>
+
+                <p>
+                    <strong>Status:</strong>
+                    <span class="status-badge draft">
+                        ${inv.status}
+                    </span>
+                </p>
+
+                <div class="button-row">
+
+                    <button
+                        class="secondary-btn"
+                        onclick="showToast('Coming Soon')">
+                        Open
+                    </button>
+
+                    <button
+                        class="secondary-btn"
+                        onclick="showToast('Edit Coming Soon')">
+                        Edit
+                    </button>
+
+                    <button
+                        class="danger-btn"
+                        onclick="deleteInvitation('${inv.id}')">
+                        Delete
+                    </button>
+
+                </div>
+
+            </section>
+        `;
+
+    }).join("");
+
+}
+
+function openCreateInvitationModal() {
+
+    const families = JSON.parse(localStorage.getItem("nexo_families") || "[]");
+
+    if (families.length === 0) {
+
+        showToast("Create a family first.");
+
+        return;
+
+    }
+
+    openModal(`
+
+        <h2>Create Invitation</h2>
+
+        <label>Family</label>
+
+        <select id="inviteFamily">
+
+            ${families.map(f => `
+                <option value="${f.id}">
+                    ${f.name}
+                </option>
+            `).join("")}
+
+        </select>
+
+        <br><br>
+
+        <button
+            class="primary-btn"
+            onclick="createInvitation()">
+
+            Create Invitation
+
+        </button>
+
+    `);
 
 }
