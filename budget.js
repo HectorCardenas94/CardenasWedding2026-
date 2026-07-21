@@ -168,15 +168,53 @@ renderRecentActivity() {
 
 renderCategories() {
 
+    let html = "";
+
+    if (this.data.categories.length === 0) {
+
+        html = `
+            <p>No categories yet.</p>
+        `;
+
+    } else {
+
+        this.data.categories.forEach((category,index)=>{
+
+            html += `
+
+                <div class="category-card">
+
+                    <h4>${category.name}</h4>
+
+                    <p>Budget: $${category.budget.toLocaleString()}</p>
+
+                    <p>Spent: $${category.spent.toLocaleString()}</p>
+
+                    <p>Remaining: $${(category.budget-category.spent).toLocaleString()}</p>
+
+                    <button onclick="budgetModule.deleteCategory(${index})">
+
+                        Delete
+
+                    </button>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
     return `
 
         <section class="budget-section">
 
             <h3>📂 Categories</h3>
 
-            <p>No categories yet.</p>
+            ${html}
 
-            <button>
+            <button onclick="budgetModule.addCategory()">
 
                 ➕ Add Category
 
@@ -187,6 +225,46 @@ renderCategories() {
     `;
 
 },
+
+addCategory() {
+
+    const name = prompt("Category Name");
+
+    if (!name) return;
+
+    const budget = Number(prompt("Category Budget",0));
+
+    this.data.categories.push({
+
+        name,
+
+        budget,
+
+        spent:0
+
+    });
+
+    this.save();
+
+    document.getElementById("pageContainer").innerHTML =
+        this.render();
+
+},
+
+deleteCategory(index) {
+
+    if (!confirm("Delete this category?")) return;
+
+    this.data.categories.splice(index,1);
+
+    this.save();
+
+    document.getElementById("pageContainer").innerHTML =
+        this.render();
+
+},
+
+
 
 openFundsModal() {
 
