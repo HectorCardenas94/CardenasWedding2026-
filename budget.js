@@ -19,62 +19,173 @@ const budgetModule = {
     initialized: false,
 
     init() {
-        if (this.initialized) return;
 
-        this.initialized = true;
+    if (this.initialized) return;
 
-        console.log("✅ Budget Module Loaded");
-    },
+    const savedData = localStorage.getItem("nexo-finances");
+
+    if (savedData) {
+
+        this.data = JSON.parse(savedData);
+
+    }
+
+    this.initialized = true;
+
+},
+
+save() {
+
+    localStorage.setItem(
+
+        "nexo-finances",
+
+        JSON.stringify(this.data)
+
+    );
+
+},
+
+
 
     render() {
+
     return `
     <section class="page-section budget-page">
 
         <div class="page-header">
-            <h2>💰 Wedding Budget</h2>
-            <p>Track every dollar of your wedding expenses.</p>
-        </div>
 
-        <div class="budget-summary">
+            <h2>💰 Wedding Finances</h2>
 
-            <div class="summary-card">
-                <h3>💵 Available Funds</h3>
-                <span>$${this.data.availableFunds.toLocaleString()}</span>
-            </div>
-
-            <div class="summary-card">
-                <h3>🎯 Budget Goal</h3>
-                <span>$${this.data.budgetGoal.toLocaleString()}</span>
-            </div>
-
-            <div class="summary-card">
-                <h3>💸 Total Spent</h3>
-                <span>$${this.data.totalSpent.toLocaleString()}</span>
-            </div>
-
-            <div class="summary-card">
-                <h3>💳 Remaining Budget</h3>
-                <span>$${(this.data.budgetGoal - this.data.totalSpent).toLocaleString()}</span>
-            </div>
+            <p>Manage your wedding finances in one place.</p>
 
         </div>
 
-        <div class="budget-actions">
+        ${this.renderOverview()}
 
-            <button onclick="budgetModule.openFundsModal()">
+        ${this.renderUpcomingPayments()}
 
-                💰 Manage Funds
+        ${this.renderRecentActivity()}
 
-            </button>
-
-        </div>
-
-        <div id="budgetCategories"></div>
-
-        <div id="budgetTransactions"></div>
+        ${this.renderCategories()}
 
     </section>
     `;
+
+},
+
+renderOverview() {
+
+    return `
+
+        <section class="budget-overview">
+
+            <h3>Financial Overview</h3>
+
+            <div class="budget-summary">
+
+                <div class="summary-card">
+
+                    <h4>💵 Available Funds</h4>
+
+                    <span>$${this.data.availableFunds.toLocaleString()}</span>
+
+                </div>
+
+                <div class="summary-card">
+
+                    <h4>🎯 Budget Goal</h4>
+
+                    <span>$${this.data.budgetGoal.toLocaleString()}</span>
+
+                </div>
+
+                <div class="summary-card">
+
+                    <h4>💸 Total Spent</h4>
+
+                    <span>$${this.data.totalSpent.toLocaleString()}</span>
+
+                </div>
+
+                <div class="summary-card">
+
+                    <h4>💳 Remaining Budget</h4>
+
+                    <span>$${(this.data.budgetGoal - this.data.totalSpent).toLocaleString()}</span>
+
+                </div>
+
+            </div>
+
+            <div class="budget-actions">
+
+                <button onclick="budgetModule.openFundsModal()">
+
+                    💰 Manage Funds
+
+                </button>
+
+            </div>
+
+        </section>
+
+    `;
+
+},
+
+renderUpcomingPayments() {
+
+    return `
+
+        <section class="budget-section">
+
+            <h3>⚠️ Upcoming Payments</h3>
+
+            <p>No upcoming payments.</p>
+
+        </section>
+
+    `;
+
+},
+
+renderRecentActivity() {
+
+    return `
+
+        <section class="budget-section">
+
+            <h3>🕒 Recent Activity</h3>
+
+            <p>No recent activity.</p>
+
+        </section>
+
+    `;
+
+},
+
+renderCategories() {
+
+    return `
+
+        <section class="budget-section">
+
+            <h3>📂 Categories</h3>
+
+            <p>No categories yet.</p>
+
+            <button>
+
+                ➕ Add Category
+
+            </button>
+
+        </section>
+
+    `;
+
 },
 
 openFundsModal() {
@@ -96,8 +207,12 @@ openFundsModal() {
     this.data.availableFunds = Number(available) || 0;
     this.data.budgetGoal = Number(goal) || 0;
 
+    this.save();
+
     document.getElementById("pageContainer").innerHTML =
         this.render();
 
-}
+},
+
+
 };
