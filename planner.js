@@ -61,6 +61,18 @@ function showInvitations(event,link){
 
 }
 
+function showBudget(event, link){
+
+    if(event) event.preventDefault();
+
+    activateNav(link);
+
+    document.getElementById("pageContainer").innerHTML = budgetModule.render();
+
+    budgetModule.init();
+
+}
+
 function showGuests(event, link){
 
     if(event) event.preventDefault();
