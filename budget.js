@@ -152,13 +152,43 @@ renderUpcomingPayments() {
 
 renderRecentActivity() {
 
+    if (!this.data.activity) {
+
+        this.data.activity = [];
+
+    }
+
+    let html = "";
+
+    if (this.data.activity.length === 0) {
+
+        html = "<p>No recent activity.</p>";
+
+    } else {
+
+        this.data.activity.slice().reverse().forEach(item => {
+
+            html += `
+
+                <div class="activity-item">
+
+                    ${item}
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
     return `
 
         <section class="budget-section">
 
             <h3>🕒 Recent Activity</h3>
 
-            <p>No recent activity.</p>
+            ${html}
 
         </section>
 
@@ -232,17 +262,27 @@ addCategory() {
 
     if (!name) return;
 
-    const budget = Number(prompt("Category Budget",0));
+    const budget = Number(prompt("Category Budget", 0));
 
     this.data.categories.push({
 
         name,
-
         budget,
-
-        spent:0
+        spent: 0
 
     });
+
+    if (!this.data.activity) {
+
+        this.data.activity = [];
+
+    }
+
+    this.data.activity.push(
+
+        `📂 Added category "${name}"`
+
+    );
 
     this.save();
 
@@ -253,9 +293,23 @@ addCategory() {
 
 deleteCategory(index) {
 
-    if (!confirm("Delete this category?")) return;
+    const category = this.data.categories[index];
 
-    this.data.categories.splice(index,1);
+    if (!confirm(`Delete "${category.name}"?`)) return;
+
+    this.data.categories.splice(index, 1);
+
+    if (!this.data.activity) {
+
+        this.data.activity = [];
+
+    }
+
+    this.data.activity.push(
+
+        `🗑 Deleted category "${category.name}"`
+
+    );
 
     this.save();
 
