@@ -63,6 +63,8 @@ function showInvitations(event,link){
 
 function showBudget(event, link){
 
+    console.log("Budget button clicked");
+
     if(event) event.preventDefault();
 
     activateNav(link);
