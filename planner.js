@@ -495,19 +495,6 @@ ${cards}
 
 </section>
 
-</tr>
-
-</thead>
-
-<tbody id="familyTable">
-
-${rows}
-
-</tbody>
-
-</table>
-
-</section>
 
 `;
 
