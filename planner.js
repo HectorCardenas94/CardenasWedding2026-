@@ -61,17 +61,16 @@ function showInvitations(event,link){
 
 }
 
-function showBudget(event, link){
+function showBudget(event, link) {
 
-    console.log("Budget button clicked");
-
-    if(event) event.preventDefault();
+    if (event) event.preventDefault();
 
     activateNav(link);
 
-    document.getElementById("pageContainer").innerHTML = budgetModule.render();
-
     budgetModule.init();
+
+    document.getElementById("pageContainer").innerHTML =
+        budgetModule.render();
 
 }
 
