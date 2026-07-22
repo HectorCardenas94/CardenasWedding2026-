@@ -7,7 +7,7 @@ const invitationsModule = (() => {
         activity: []
     };
 
-    function init() {
+function init() {
 
     alert("Init A");
 
@@ -30,11 +30,14 @@ const invitationsModule = (() => {
     alert("Init E");
 }
 
-        syncFamilies();
+function save() {
 
-        save();
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
 
-    }
+}
 
     function save() {
 
