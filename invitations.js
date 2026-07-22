@@ -1,318 +1,295 @@
-"use strict";
+const invitationsModule = (() => {
 
-/* ==========================================================
-   NEXO Alpha 0.3
-   Invitations Module
-========================================================== */
+    const STORAGE_KEY = "nexo_invitations";
 
-const INVITATION_STORAGE_KEY = "nexo_invitations";
+    let data = {
+        invitations: [],
+        activity: []
+    };
 
-function getInvitations(){
+    function init() {
 
-    const data = localStorage.getItem(INVITATION_STORAGE_KEY);
+        const saved = localStorage.getItem(STORAGE_KEY);
 
-    if(!data){
+        if (saved) {
+            data = JSON.parse(saved);
+        }
 
-        return [];
+        syncFamilies();
 
-    }
-
-    try{
-
-        return JSON.parse(data);
-
-    }catch{
-
-        return [];
+        save();
 
     }
 
-}
+    function save() {
 
-function saveInvitations(invitations){
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(data)
+        );
 
-    localStorage.setItem(
+    }
 
-        INVITATION_STORAGE_KEY,
+    function syncFamilies() {
 
-        JSON.stringify(invitations)
+        let families = [];
 
-    );
+        try {
 
-}
+            const savedFamilies =
+                localStorage.getItem("nexo_families");
 
-function loadInvitations(){
+            if (savedFamilies) {
 
-    const page = document.getElementById("pageContainer");
+                const parsed = JSON.parse(savedFamilies);
 
-    page.innerHTML = `
+                families = parsed.families || [];
 
-<header class="top-header">
+            }
 
-<div>
+        } catch (err) {
 
-<h2>Invitations</h2>
+            console.error(err);
 
-<p class="subtitle">
+        }
 
-Create and manage invitations.
+        families.forEach(family => {
 
+            const exists =
+                data.invitations.find(
+                    x => x.familyId === family.id
+                );
+
+            if (!exists) {
+
+                data.invitations.push({
+
+                    id: crypto.randomUUID(),
+
+                    familyId: family.id,
+
+                    familyName: family.name,
+
+                    invitationStatus: "Not Sent",
+
+                    emailStatus: "Not Sent",
+
+                    smsStatus: "Not Sent",
+
+                    qrStatus: "Not Generated",
+
+                    rsvpStatus: "Pending",
+
+                    email: family.email || "",
+
+                    phone: family.phone || "",
+
+                    guests: family.guests || [],
+
+                    qrCode: "",
+
+                    rsvpLink: ""
+
+                });
+
+            }
+
+        });
+
+    }
+
+    function render() {
+
+        return `
+
+<div class="page-header">
+
+<h1>Invitations</h1>
+
+<p>
+Manage invitations, email, SMS,
+QR Codes and RSVP tracking.
 </p>
 
 </div>
 
-<button
-class="primary-btn"
-onclick="openCreateInvitationModal()">
+${renderOverview()}
 
-＋ Create Invitation
+${renderInvitationList()}
 
-</button>
-
-</header>
-
-<section id="invitationStats" class="stats-grid">
-
-</section>
-
-<section id="invitationList">
-
-</section>
+${renderActivity()}
 
 `;
 
-    renderInvitationCards();
-
-}
-
-/* ==========================================================
-   Invitations UI - Part 1A
-========================================================== */
-
-function renderInvitationCards() {
-
-    const invitations = getInvitations();
-    const families = JSON.parse(localStorage.getItem("nexo_families") || "[]");
-
-    const container = document.getElementById("invitationList");
-
-    if (!container) return;
-
-    if (invitations.length === 0) {
-
-        container.innerHTML = `
-            <section class="card">
-                <h3>No Invitations Yet</h3>
-                <p>Create your first invitation.</p>
-            </section>
-        `;
-
-        return;
-
     }
 
-    container.innerHTML = invitations.map(inv => {
+    function renderOverview() {
 
-        const family = families.find(f => Number(f.id) === Number(inv.familyId));
+        const total = data.invitations.length;
 
-        const guestCount = family ? family.guests : 0;
+        const sent =
+            data.invitations.filter(
+                x => x.invitationStatus === "Sent"
+            ).length;
+
+        const pending =
+            data.invitations.filter(
+                x => x.rsvpStatus === "Pending"
+            ).length;
+
+        const received =
+            data.invitations.filter(
+                x => x.rsvpStatus === "Received"
+            ).length;
 
         return `
-            <section class="card invitation-card">
 
-                <h3>${family ? family.name : "Unknown Family"}</h3>
+<div class="card">
 
-                <p><strong>Guests:</strong> ${guestCount}</p>
+<h2>Invitation Overview</h2>
 
-                <p>
-                    <strong>Status:</strong>
-                    <span class="status-badge draft">
-                        ${inv.status}
-                    </span>
-                </p>
+<div class="stats-grid">
 
-                <div class="button-row">
+<div class="stat-card">
+<h3>${total}</h3>
+<p>Total Families</p>
+</div>
 
-                    <button
-    class="secondary-btn"
-    onclick="openInvitation('${inv.id}')">
-    Open
+<div class="stat-card">
+<h3>${sent}</h3>
+<p>Invitations Sent</p>
+</div>
+
+<div class="stat-card">
+<h3>${pending}</h3>
+<p>Pending RSVP</p>
+</div>
+
+<div class="stat-card">
+<h3>${received}</h3>
+<p>RSVP Received</p>
+</div>
+
+</div>
+
+</div>
+
+`;
+
+    }
+
+    function renderInvitationList() {
+
+        let html = `
+
+<div class="card">
+
+<h2>Invitation List</h2>
+
+`;
+
+        data.invitations.forEach(invite => {
+
+            html += `
+
+<div class="family-row">
+
+<div>
+
+<strong>${invite.familyName}</strong>
+
+<br>
+
+Invitation:
+${invite.invitationStatus}
+
+<br>
+
+RSVP:
+${invite.rsvpStatus}
+
+</div>
+
+<div>
+
+<button>
+
+Manage
+
 </button>
 
-                    <button
-                        class="danger-btn"
-                        onclick="deleteInvitation('${inv.id}')">
-                        Delete
-                    </button>
+</div>
 
-                </div>
+</div>
 
-            </section>
-        `;
+`;
 
-    }).join("");
+        });
 
-}
+        html += `
 
-function openCreateInvitationModal() {
+</div>
 
-    const families = JSON.parse(localStorage.getItem("nexo_families") || "[]");
+`;
 
-    if (families.length === 0) {
-
-        showToast("Create a family first.");
-
-        return;
+        return html;
 
     }
 
-    openModal(`
+    function renderActivity() {
 
-        <h2>Create Invitation</h2>
+        let html = `
 
-        <label>Family</label>
+<div class="card">
 
-        <select id="inviteFamily">
+<h2>Recent Activity</h2>
 
-            ${families.map(f => `
-                <option value="${f.id}">
-                    ${f.name}
-                </option>
-            `).join("")}
+`;
 
-        </select>
+        if (data.activity.length === 0) {
 
-        <br><br>
+            html += `
+<p>No activity yet.</p>
+`;
 
-        <button
-            class="primary-btn"
-            onclick="createInvitation()">
+        }
 
-            Create Invitation
+        data.activity
+            .slice()
+            .reverse()
+            .forEach(item => {
 
-        </button>
+                html += `
 
-    `);
+<p>
 
-}
+${item}
 
-/* ==========================================================
-   Invitations Logic - Part 1B
-========================================================== */
+</p>
 
-function createInvitation() {
+`;
 
+            });
 
-const familyId = Number(document.getElementById("inviteFamily").value);
+        html += `
 
-    const invitations = getInvitations();
+</div>
 
-    // Prevent duplicate invitations
-    if (invitations.some(inv => inv.familyId === familyId)) {
+`;
 
-        showToast("This family already has an invitation.");
-
-        return;
+        return html;
 
     }
 
-    invitations.push({
+    return {
 
-        id: crypto.randomUUID(),
+        init,
 
-        familyId,
+        render,
 
-        status: "Draft",
+        save
 
-        createdAt: new Date().toISOString()
+    };
 
-    });
+})();
 
-    saveInvitations(invitations);
-
-    closeModal();
-
-    renderInvitationCards();
-
-    showToast("Invitation created.");
-
-}
-
-function deleteInvitation(id) {
-
-    if (!confirm("Delete this invitation?")) {
-
-        return;
-
-    }
-
-    const invitations = getInvitations().filter(inv => inv.id !== id);
-
-    saveInvitations(invitations);
-
-    renderInvitationStats();
-renderInvitationStats();
-
-
-    showToast("Invitation deleted.");
-
-}
-
-function renderInvitationStats() {
-
-    const invitations = getInvitations();
-
-    const families = JSON.parse(
-        localStorage.getItem("nexo_families") || "[]"
-    );
-
-    const stats = document.getElementById("invitationStats");
-
-    if (!stats) return;
-
-    const drafts = invitations.filter(
-        i => i.status === "Draft"
-    ).length;
-
-    const published = invitations.filter(
-        i => i.status === "Published"
-    ).length;
-
-    const totalGuests = invitations.reduce((sum, inv) => {
-
-        const family = families.find(
-            f => Number(f.id) === Number(inv.familyId)
-        );
-
-        return sum + (family ? family.guests : 0);
-
-    }, 0);
-
-    stats.innerHTML = `
-
-        <section class="card">
-            <h3>${drafts}</h3>
-            <p>Drafts</p>
-        </section>
-
-        <section class="card">
-            <h3>${published}</h3>
-            <p>Published</p>
-        </section>
-
-        <section class="card">
-            <h3>${invitations.length}</h3>
-            <p>Total Invitations</p>
-        </section>
-
-        <section class="card">
-            <h3>${totalGuests}</h3>
-            <p>Guests Linked</p>
-        </section>
-
-    `;
-
-}
-
-window.createInvitation = createInvitation;
-window.deleteInvitation = deleteInvitation;
