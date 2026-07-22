@@ -51,13 +51,16 @@ function showFamilies(event,link){
 
 }
 
-function showInvitations(event,link){
+function showInvitations(event, link) {
 
-    if(event) event.preventDefault();
+    if (event) event.preventDefault();
 
     activateNav(link);
 
-    loadInvitations();
+    invitationsModule.init();
+
+    document.getElementById("pageContainer").innerHTML =
+        invitationsModule.render();
 
 }
 
