@@ -63,7 +63,7 @@ families = Array.isArray(parsed) ? parsed : [];
 
                 data.invitations.push({
 
-                    id: crypto.randomUUID(),
+                    id: Date.now().toString() + Math.random().toString(36).slice(2),
 
                     familyId: family.id,
 
