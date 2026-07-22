@@ -9,11 +9,26 @@ const invitationsModule = (() => {
 
     function init() {
 
-        const saved = localStorage.getItem(STORAGE_KEY);
+    alert("Init A");
 
-        if (saved) {
-            data = JSON.parse(saved);
-        }
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    alert("Init B");
+
+    if (saved) {
+        data = JSON.parse(saved);
+    }
+
+    alert("Init C");
+
+    syncFamilies();
+
+    alert("Init D");
+
+    save();
+
+    alert("Init E");
+}
 
         syncFamilies();
 
