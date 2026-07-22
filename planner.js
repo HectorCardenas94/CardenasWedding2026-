@@ -55,13 +55,20 @@ function showInvitations(event, link) {
 
     if (event) event.preventDefault();
 
+    alert("Step 1");
+
     activateNav(link);
 
+    alert("Step 2");
+
     invitationsModule.init();
+
+    alert("Step 3");
 
     document.getElementById("pageContainer").innerHTML =
         invitationsModule.render();
 
+    alert("Step 4");
 }
 
 function showBudget(event, link) {
