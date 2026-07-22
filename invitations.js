@@ -43,8 +43,7 @@ const invitationsModule = (() => {
 
                 const parsed = JSON.parse(savedFamilies);
 
-                families = parsed.families || [];
-
+families = Array.isArray(parsed) ? parsed : [];
             }
 
         } catch (err) {
@@ -84,7 +83,7 @@ const invitationsModule = (() => {
 
                     phone: family.phone || "",
 
-                    guests: family.guests || [],
+                    guests: family.members || [],
 
                     qrCode: "",
 
